@@ -1,0 +1,180 @@
+[
+	{
+		"name": "button",
+		"title": "Button",
+		"type": "registry:ui",
+		"description": "An iOS-style button with spring physics scaling, magnetic pull, and 3D specular light glare reflections.",
+		"dependencies": [
+			"tailwind-variants"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "button.json"
+	},
+	{
+		"name": "button-group",
+		"title": "Button Group",
+		"type": "registry:ui",
+		"description": "Combines multiple nested Buttons together into a single fluid Segmented Bar.",
+		"dependencies": [
+			"tailwind-variants"
+		],
+		"registryDependencies": [
+			"button"
+		],
+		"relativeUrl": "button-group.json"
+	},
+	{
+		"name": "card",
+		"title": "Card",
+		"type": "registry:ui",
+		"description": "A tactile card layout container with customizable header, content, and footer sections.",
+		"dependencies": [
+			"tailwind-variants"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "card.json"
+	},
+	{
+		"name": "dialog",
+		"title": "Dialog",
+		"type": "registry:ui",
+		"description": "A highly tactile, accessible modal system prompt mimicking native iOS dialogue designs.",
+		"dependencies": [
+			"bits-ui",
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"button"
+		],
+		"relativeUrl": "dialog.json"
+	},
+	{
+		"name": "dropdown-menu",
+		"title": "Dropdown Menu",
+		"type": "registry:ui",
+		"description": "A modular glassmorphic popup containing list hooks, short-cuts, checkboxes, and sub-menu branches.",
+		"dependencies": [
+			"bits-ui",
+			"@lucide/svelte"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "dropdown-menu.json"
+	},
+	{
+		"name": "glass-view",
+		"title": "Glass View",
+		"type": "registry:ui",
+		"description": "Core depth primitive container styled with specular boundaries and inertia drag rotation physics.",
+		"dependencies": [
+			"tailwind-variants"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "glass-view.json"
+	},
+	{
+		"name": "input",
+		"title": "Input",
+		"type": "registry:ui",
+		"description": "Text input component with focus borders, specular highlights, and clean clear wiggles.",
+		"dependencies": [
+			"tailwind-variants",
+			"@lucide/svelte"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "input.json"
+	},
+	{
+		"name": "input-group",
+		"title": "Input Group",
+		"type": "registry:ui",
+		"description": "Unifies inputs, addons, and triggers into a single rounded magnetic and specular capsule framework.",
+		"dependencies": [
+			"tailwind-variants",
+			"@lucide/svelte"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "input-group.json"
+	},
+	{
+		"name": "list",
+		"title": "List",
+		"type": "registry:ui",
+		"description": "Standard iOS replica settings list layouts with divided headers, options rows, and toggling fields.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "list.json"
+	},
+	{
+		"name": "select",
+		"title": "Select",
+		"type": "registry:ui",
+		"description": "A glassmorphic selection wrapper built with robust Bits UI interactive features.",
+		"dependencies": [
+			"bits-ui",
+			"@lucide/svelte"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "select.json"
+	},
+	{
+		"name": "separator",
+		"title": "Separator",
+		"type": "registry:ui",
+		"description": "Semantic horizontal or vertical layout dividing line.",
+		"dependencies": [
+			"bits-ui"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "separator.json"
+	},
+	{
+		"name": "sheet",
+		"title": "Sheet",
+		"type": "registry:ui",
+		"description": "Apple-style multi-directional sheet panels that slide fluidly from the out-of-bounds edges of the viewport.",
+		"dependencies": [
+			"bits-ui",
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"button"
+		],
+		"relativeUrl": "sheet.json"
+	},
+	{
+		"name": "slider",
+		"title": "Slider",
+		"type": "registry:ui",
+		"description": "Tactile slider range input built with Bits UI primitives.",
+		"dependencies": [
+			"bits-ui"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "slider.json"
+	},
+	{
+		"name": "switch",
+		"title": "Switch",
+		"type": "registry:ui",
+		"description": "Satisfying iOS toggling control with soft spring-animated knob slides.",
+		"dependencies": [
+			"bits-ui"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "switch.json"
+	},
+	{
+		"name": "navigation-stack",
+		"title": "Navigation Stack",
+		"type": "registry:ui",
+		"description": "Scaffolding architecture that coordinates dynamic intersection blurred-out header shifts.",
+		"dependencies": [
+			"@lucide/svelte",
+			"gsap"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "navigation-stack.json"
+	}
+]

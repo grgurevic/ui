@@ -1,0 +1,37 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "list",
+	"title": "List",
+	"type": "registry:ui",
+	"description": "Standard iOS replica settings list layouts with divided headers, options rows, and toggling fields.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n\timport { cn } from \"$UTILS$.js\";\n\n\tlet {\n\t\tclass: className,\n\t\tonclick,\n\t\thref,\n\t\tstyle,\n\t\tchildren,\n\t\t...restProps\n\t}: {\n\t\tclass?: string;\n\t\tonclick?: (e: MouseEvent) => void;\n\t\thref?: string;\n\t\tstyle?: string;\n\t\tchildren?: any;\n\t\t[key: string]: any;\n\t} = $props();\n\n\tlet rowStyle = $derived(style ?? \"\");\n</script>\n\n{#if href}\n\t<a\n\t\t{href}\n\t\tclass={cn(\n\t\t\t\"list-row w-full flex items-center justify-between p-4 text-left transition-all duration-100 outline-none select-none relative bg-card text-card-foreground\",\n\t\t\t\"hover:bg-muted/30 active:bg-muted/60 cursor-pointer\",\n\t\t\tclassName,\n\t\t)}\n\t\tstyle={rowStyle}\n\t\t{...restProps}\n\t>\n\t\t{@render children?.()}\n\t</a>\n{:else if onclick}\n\t<button\n\t\ttype=\"button\"\n\t\t{onclick}\n\t\tclass={cn(\n\t\t\t\"list-row w-full flex items-center justify-between p-4 text-left transition-all duration-100 outline-none select-none relative bg-card text-card-foreground\",\n\t\t\t\"hover:bg-muted/30 active:bg-muted/60 cursor-pointer\",\n\t\t\tclassName,\n\t\t)}\n\t\tstyle={rowStyle}\n\t\t{...restProps}\n\t>\n\t\t{@render children?.()}\n\t</button>\n{:else}\n\t<div class={cn(\"list-row w-full flex items-center justify-between p-4 text-left select-none relative bg-card text-card-foreground\", className)} style={rowStyle} {...restProps}>\n\t\t{@render children?.()}\n\t</div>\n{/if}\n\n<style>\n\t/* Custom left-inset divider line matching genuine iOS Settings */\n\t:global(.list-row:not(:last-child))::after {\n\t\tcontent: \"\";\n\t\tposition: absolute;\n\t\tbottom: 0;\n\t\tright: 1rem;\n\t\tleft: 1rem;\n\t\theight: 1px;\n\t\tbackground-color: var(--border);\n\t\topacity: 0.5;\n\t}\n</style>\n",
+			"type": "registry:ui",
+			"target": "list/list-row.svelte"
+		},
+		{
+			"content": "<script lang=\"ts\">\n\timport { cn } from \"$UTILS$.js\";\n\n\tlet {\n\t\tclass: className,\n\t\tbg = \"bg-primary\",\n\t\tchildren,\n\t\t...restProps\n\t}: {\n\t\tclass?: string;\n\t\tbg?: string;\n\t\tchildren?: any;\n\t\t[key: string]: any;\n\t} = $props();\n</script>\n\n<div\n\tclass={cn(\n\t\t\"size-7 flex items-center justify-center rounded-[7px] text-white shrink-0 shadow-[0_1px_2px_rgba(0,0,0,0.1)]\",\n\t\tbg.startsWith(\"bg-\") ? bg : \"\",\n\t\tclassName\n\t)}\n\tstyle={!bg.startsWith(\"bg-\") ? `background-color: ${bg};` : undefined}\n\t{...restProps}\n>\n\t{@render children?.()}\n</div>\n",
+			"type": "registry:ui",
+			"target": "list/list-icon.svelte"
+		},
+		{
+			"content": "import List from \"./list.svelte\";\nimport ListSection from \"./list-section.svelte\";\nimport ListRow from \"./list-row.svelte\";\n\nexport {\n\tList,\n\tListSection,\n\tListRow,\n\t//\n\tList as Root,\n\tListSection as Section,\n\tListRow as Row,\n};\n",
+			"type": "registry:ui",
+			"target": "list/index.ts"
+		},
+		{
+			"content": "<script lang=\"ts\">\n\timport { cn } from \"$UTILS$.js\";\n\n\tlet {\n\t\tclass: className,\n\t\theader,\n\t\tfooter,\n\t\tchildren,\n\t\t...restProps\n\t}: {\n\t\tclass?: string;\n\t\theader?: string | any;\n\t\tfooter?: string | any;\n\t\tchildren?: any;\n\t\t[key: string]: any;\n\t} = $props();\n</script>\n\n<div class={cn(\"flex flex-col gap-1.5 w-full\", className)} {...restProps}>\n\t{#if header}\n\t\t<span class=\"text-[13px] font-semibold text-muted-foreground px-4 select-none\">\n\t\t\t{#if typeof header === \"string\"}\n\t\t\t\t{header}\n\t\t\t{:else}\n\t\t\t\t{@render header()}\n\t\t\t{/if}\n\t\t</span>\n\t{/if}\n\n\t<div class=\"flex flex-col w-full\">\n\t\t{@render children?.()}\n\t</div>\n\n\t{#if footer}\n\t\t<p class=\"text-xs text-muted-foreground/70 px-4 leading-normal select-none\">\n\t\t\t{#if typeof footer === \"string\"}\n\t\t\t\t{footer}\n\t\t\t{:else}\n\t\t\t\t{@render footer()}\n\t\t\t{/if}\n\t\t</p>\n\t{/if}\n</div>\n",
+			"type": "registry:ui",
+			"target": "list/list-section.svelte"
+		},
+		{
+			"content": "<script lang=\"ts\">\n\timport { cn } from \"$UTILS$.js\";\n\n\tlet {\n\t\tclass: className,\n\t\tchildren,\n\t\t...restProps\n\t}: {\n\t\tclass?: string;\n\t\tchildren?: any;\n\t\t[key: string]: any;\n\t} = $props();\n</script>\n\n<div class={cn(\"bg-card text-card-foreground rounded-3xl overflow-hidden flex flex-col w-full relative list\", className)} {...restProps}>\n\t{@render children?.()}\n</div>\n\n<style>\n\t.list {\n\t\t--corner-shape: bevel;\n\t}\n</style>\n",
+			"type": "registry:ui",
+			"target": "list/list.svelte"
+		}
+	]
+}

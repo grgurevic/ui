@@ -1,0 +1,624 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry.json",
+	"name": "liquid.grgurevic.click",
+	"homepage": "https://liquid.grgurevic.click",
+	"aliases": {
+		"lib": "$lib",
+		"ui": "$lib/components/ui",
+		"components": "$lib/components",
+		"utils": "$lib/utils"
+	},
+	"items": [
+		{
+			"name": "button",
+			"type": "registry:ui",
+			"title": "Button",
+			"description": "An iOS-style button with spring physics scaling, magnetic pull, and 3D specular light glare reflections.",
+			"dependencies": ["tailwind-variants"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/button/button.svelte",
+					"type": "registry:ui",
+					"target": "button/button.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/button/index.ts",
+					"type": "registry:ui",
+					"target": "button/index.ts"
+				}
+			]
+		},
+		{
+			"name": "button-group",
+			"type": "registry:ui",
+			"title": "Button Group",
+			"description": "Combines multiple nested Buttons together into a single fluid Segmented Bar.",
+			"dependencies": ["tailwind-variants"],
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "src/lib/components/ui/button-group/button-group-separator.svelte",
+					"type": "registry:ui",
+					"target": "button-group/button-group-separator.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/button-group/button-group-text.svelte",
+					"type": "registry:ui",
+					"target": "button-group/button-group-text.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/button-group/button-group.svelte",
+					"type": "registry:ui",
+					"target": "button-group/button-group.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/button-group/index.ts",
+					"type": "registry:ui",
+					"target": "button-group/index.ts"
+				}
+			]
+		},
+		{
+			"name": "card",
+			"type": "registry:ui",
+			"title": "Card",
+			"description": "A tactile card layout container with customizable header, content, and footer sections.",
+			"dependencies": ["tailwind-variants"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/card/card-title.svelte",
+					"type": "registry:ui",
+					"target": "card/card-title.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/card/card-header.svelte",
+					"type": "registry:ui",
+					"target": "card/card-header.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/card/card-description.svelte",
+					"type": "registry:ui",
+					"target": "card/card-description.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/card/card.svelte",
+					"type": "registry:ui",
+					"target": "card/card.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/card/card-action.svelte",
+					"type": "registry:ui",
+					"target": "card/card-action.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/card/index.ts",
+					"type": "registry:ui",
+					"target": "card/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/card/card-content.svelte",
+					"type": "registry:ui",
+					"target": "card/card-content.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/card/card-footer.svelte",
+					"type": "registry:ui",
+					"target": "card/card-footer.svelte"
+				}
+			]
+		},
+		{
+			"name": "dialog",
+			"type": "registry:ui",
+			"title": "Dialog",
+			"description": "A highly tactile, accessible modal system prompt mimicking native iOS dialogue designs.",
+			"dependencies": ["bits-ui", "@lucide/svelte"],
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "src/lib/components/ui/dialog/dialog-trigger.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-trigger.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-description.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-description.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-portal.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-portal.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-title.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-title.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-footer.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-footer.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-content.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-content.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-close.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-close.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/index.ts",
+					"type": "registry:ui",
+					"target": "dialog/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-header.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-header.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dialog/dialog-overlay.svelte",
+					"type": "registry:ui",
+					"target": "dialog/dialog-overlay.svelte"
+				}
+			]
+		},
+		{
+			"name": "dropdown-menu",
+			"type": "registry:ui",
+			"title": "Dropdown Menu",
+			"description": "A modular glassmorphic popup containing list hooks, short-cuts, checkboxes, and sub-menu branches.",
+			"dependencies": ["bits-ui", "@lucide/svelte"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-sub.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-sub.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-checkbox-item.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-checkbox-item.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-sub-trigger.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-sub-trigger.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-group.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-group.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-label.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-label.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-portal.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-portal.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-content.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-content.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-checkbox-group.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-checkbox-group.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-radio-item.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-radio-item.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-item.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-item.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-group-heading.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-group-heading.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-shortcut.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-shortcut.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-sub-content.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-sub-content.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-radio-group.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-radio-group.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/index.ts",
+					"type": "registry:ui",
+					"target": "dropdown-menu/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-separator.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-separator.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/dropdown-menu/dropdown-menu-trigger.svelte",
+					"type": "registry:ui",
+					"target": "dropdown-menu/dropdown-menu-trigger.svelte"
+				}
+			]
+		},
+		{
+			"name": "glass-view",
+			"type": "registry:ui",
+			"title": "Glass View",
+			"description": "Core depth primitive container styled with specular boundaries and inertia drag rotation physics.",
+			"dependencies": ["tailwind-variants"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/glass-view/glass-view.svelte",
+					"type": "registry:ui",
+					"target": "glass-view/glass-view.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/glass-view/index.ts",
+					"type": "registry:ui",
+					"target": "glass-view/index.ts"
+				}
+			]
+		},
+		{
+			"name": "input",
+			"type": "registry:ui",
+			"title": "Input",
+			"description": "Text input component with focus borders, specular highlights, and clean clear wiggles.",
+			"dependencies": ["tailwind-variants", "@lucide/svelte"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/input/input.svelte",
+					"type": "registry:ui",
+					"target": "input/input.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/input/index.ts",
+					"type": "registry:ui",
+					"target": "input/index.ts"
+				}
+			]
+		},
+		{
+			"name": "input-group",
+			"type": "registry:ui",
+			"title": "Input Group",
+			"description": "Unifies inputs, addons, and triggers into a single rounded magnetic and specular capsule framework.",
+			"dependencies": ["tailwind-variants", "@lucide/svelte"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/input-group/input-group-input.svelte",
+					"type": "registry:ui",
+					"target": "input-group/input-group-input.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/input-group/input-group-text.svelte",
+					"type": "registry:ui",
+					"target": "input-group/input-group-text.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/input-group/input-group-button.svelte",
+					"type": "registry:ui",
+					"target": "input-group/input-group-button.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/input-group/index.ts",
+					"type": "registry:ui",
+					"target": "input-group/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/input-group/input-group.svelte",
+					"type": "registry:ui",
+					"target": "input-group/input-group.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/input-group/input-group-addon.svelte",
+					"type": "registry:ui",
+					"target": "input-group/input-group-addon.svelte"
+				}
+			]
+		},
+		{
+			"name": "list",
+			"type": "registry:ui",
+			"title": "List",
+			"description": "Standard iOS replica settings list layouts with divided headers, options rows, and toggling fields.",
+			"dependencies": ["@lucide/svelte"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/list/list-row.svelte",
+					"type": "registry:ui",
+					"target": "list/list-row.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/list/list-icon.svelte",
+					"type": "registry:ui",
+					"target": "list/list-icon.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/list/index.ts",
+					"type": "registry:ui",
+					"target": "list/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/list/list-section.svelte",
+					"type": "registry:ui",
+					"target": "list/list-section.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/list/list.svelte",
+					"type": "registry:ui",
+					"target": "list/list.svelte"
+				}
+			]
+		},
+		{
+			"name": "select",
+			"type": "registry:ui",
+			"title": "Select",
+			"description": "A glassmorphic selection wrapper built with robust Bits UI interactive features.",
+			"dependencies": ["bits-ui", "@lucide/svelte"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/select/select-separator.svelte",
+					"type": "registry:ui",
+					"target": "select/select-separator.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-group.svelte",
+					"type": "registry:ui",
+					"target": "select/select-group.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-label.svelte",
+					"type": "registry:ui",
+					"target": "select/select-label.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-group-heading.svelte",
+					"type": "registry:ui",
+					"target": "select/select-group-heading.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-item.svelte",
+					"type": "registry:ui",
+					"target": "select/select-item.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-content.svelte",
+					"type": "registry:ui",
+					"target": "select/select-content.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select.svelte",
+					"type": "registry:ui",
+					"target": "select/select.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-portal.svelte",
+					"type": "registry:ui",
+					"target": "select/select-portal.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-scroll-up-button.svelte",
+					"type": "registry:ui",
+					"target": "select/select-scroll-up-button.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-trigger.svelte",
+					"type": "registry:ui",
+					"target": "select/select-trigger.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/select/index.ts",
+					"type": "registry:ui",
+					"target": "select/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/select/select-scroll-down-button.svelte",
+					"type": "registry:ui",
+					"target": "select/select-scroll-down-button.svelte"
+				}
+			]
+		},
+		{
+			"name": "separator",
+			"type": "registry:ui",
+			"title": "Separator",
+			"description": "Semantic horizontal or vertical layout dividing line.",
+			"dependencies": ["bits-ui"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/separator/separator.svelte",
+					"type": "registry:ui",
+					"target": "separator/separator.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/separator/index.ts",
+					"type": "registry:ui",
+					"target": "separator/index.ts"
+				}
+			]
+		},
+		{
+			"name": "sheet",
+			"type": "registry:ui",
+			"title": "Sheet",
+			"description": "Apple-style multi-directional sheet panels that slide fluidly from the out-of-bounds edges of the viewport.",
+			"dependencies": ["bits-ui", "@lucide/svelte"],
+			"registryDependencies": ["button"],
+			"files": [
+				{
+					"path": "src/lib/components/ui/sheet/sheet-content.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-content.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-footer.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-footer.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-portal.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-portal.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-overlay.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-overlay.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-close.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-close.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-header.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-header.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-title.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-title.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-trigger.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-trigger.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/index.ts",
+					"type": "registry:ui",
+					"target": "sheet/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/sheet/sheet-description.svelte",
+					"type": "registry:ui",
+					"target": "sheet/sheet-description.svelte"
+				}
+			]
+		},
+		{
+			"name": "slider",
+			"type": "registry:ui",
+			"title": "Slider",
+			"description": "Tactile slider range input built with Bits UI primitives.",
+			"dependencies": ["bits-ui"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/slider/slider.svelte",
+					"type": "registry:ui",
+					"target": "slider/slider.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/slider/index.ts",
+					"type": "registry:ui",
+					"target": "slider/index.ts"
+				}
+			]
+		},
+		{
+			"name": "switch",
+			"type": "registry:ui",
+			"title": "Switch",
+			"description": "Satisfying iOS toggling control with soft spring-animated knob slides.",
+			"dependencies": ["bits-ui"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/ui/switch/switch.svelte",
+					"type": "registry:ui",
+					"target": "switch/switch.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/switch/index.ts",
+					"type": "registry:ui",
+					"target": "switch/index.ts"
+				}
+			]
+		},
+
+		{
+			"name": "navigation-stack",
+			"type": "registry:ui",
+			"title": "Navigation Stack",
+			"description": "Scaffolding architecture that coordinates dynamic intersection blurred-out header shifts.",
+			"dependencies": ["@lucide/svelte", "gsap"],
+			"registryDependencies": [],
+			"files": [
+				{
+					"path": "src/lib/components/navigationStack/navigationStackRoot.svelte",
+					"type": "registry:component",
+					"target": "navigationStack/navigationStackRoot.svelte"
+				},
+				{
+					"path": "src/lib/components/navigationStack/navigationStackLargeTitle.svelte",
+					"type": "registry:component",
+					"target": "navigationStack/navigationStackLargeTitle.svelte"
+				},
+				{
+					"path": "src/lib/components/navigationStack/navigationStackHeader.svelte",
+					"type": "registry:component",
+					"target": "navigationStack/navigationStackHeader.svelte"
+				},
+				{
+					"path": "src/lib/components/navigationStack/index.ts",
+					"type": "registry:component",
+					"target": "navigationStack/index.ts"
+				},
+				{
+					"path": "src/lib/components/navigationStack/context.svelte.ts",
+					"type": "registry:component",
+					"target": "navigationStack/context.svelte.ts"
+				}
+			]
+		}
+	]
+}
