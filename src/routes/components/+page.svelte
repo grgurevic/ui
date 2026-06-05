@@ -6,6 +6,12 @@
 	import { Activity, ChevronLeft, Layers, Sparkles } from "@lucide/svelte";
 </script>
 
+<svelte:head>
+	<title>Svelte 5 Components Showcase - Liquid Glass UI | Grgurevic UI</title>
+	<meta name="description" content="Browse premium Svelte 5 and SvelteKit UI components, including the interactive refractive Liquid Glass View, elastic lists, specular buttons, sliders, and switches." />
+	<meta name="keywords" content="liquid glass svelte, svelte components, svelte 5 UI, svelte glass view, svelte interactive glass" />
+</svelte:head>
+
 <NavigationStack.Root>
 	<NavigationStack.Header title="Grgurevic UI">
 		{#snippet leading()}

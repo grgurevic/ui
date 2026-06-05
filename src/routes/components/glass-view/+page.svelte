@@ -85,6 +85,12 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Liquid Glass Svelte Component - Glass View | Grgurevic UI</title>
+	<meta name="description" content="A premium physics-based refractive Liquid Glass component for Svelte 5. Control refractive index, bezel width, chromatic aberration, and specular light reflections in SvelteKit." />
+	<meta name="keywords" content="liquid glass svelte, svelte liquid glass component, refractive glass svelte, svelte 5 glass view, sveltekit glass filter" />
+</svelte:head>
+
 <NavigationStack.Root>
 	<NavigationStack.Header title="Glass View">
 		{#snippet leading()}
@@ -98,8 +104,7 @@
 		<div class="flex flex-col gap-2">
 			<NavigationStack.LargeTitle>Glass View</NavigationStack.LargeTitle>
 			<p class="text-md text-muted-foreground max-w-2xl">
-				The core styling primitives of Grgurevic UI. Now featuring Apple-inspired <strong>Liquid Glass</strong> physics-based refraction at border edges, complete with chromatic aberration, custom curvature
-				shapes, and 3D specular glare shadows.
+				The core styling primitives of Grgurevic UI. This premium <strong>liquid glass svelte component</strong> features realistic, physics-based refraction at border edges, complete with chromatic aberration, custom curvature profiles, and dynamic 3D specular glare shadows.
 			</p>
 		</div>
 

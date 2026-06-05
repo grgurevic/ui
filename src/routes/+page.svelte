@@ -17,6 +17,12 @@
 	let themeIcon = $derived(mode.current === "light" ? Sun : Moon);
 </script>
 
+<svelte:head>
+	<title>Liquid Glass Svelte Components - Grgurevic UI</title>
+	<meta name="description" content="Build premium web interfaces with Grgurevic UI, a Svelte 5 component library featuring physics-based elastic cards, specular highlights, and real refractive Liquid Glass." />
+	<meta name="keywords" content="liquid glass svelte, svelte liquid glass, svelte 5 liquid glass, refractive glass svelte, svelte glassmorphism" />
+</svelte:head>
+
 <NavigationStack.Root>
 	<NavigationStack.Header title="">
 		{#snippet leading()}
@@ -61,8 +67,7 @@
 			<NavigationStack.LargeTitle class="text-5xl md:text-7xl">Grgurevic UI</NavigationStack.LargeTitle>
 
 			<p class="text-lg md:text-xl text-muted-foreground font-normal max-w-2xl leading-relaxed">
-				a svelte 5 ui lib built on top of shadcn-svelte. components that look like they were pulled straight out of your iphone. includes elastic physics, specular highlights that adjust based on your
-				cursor.
+				A premium Svelte 5 UI library built on top of shadcn-svelte. Recreate Apple's premium design aesthetics with elastic physics, specular cursor-tracking highlights, and fluid, refractive <strong>Liquid Glass in Svelte</strong>.
 			</p>
 
 			<Button variant="prominent" size="lg" href="/components">
@@ -166,10 +171,10 @@
 				<Card.Root>
 					<Card.Header>
 						<Layers class="size-4 my-1 text-primary" />
-						<Card.Title class="text-base font-bold">The depth stack thing</Card.Title>
+						<Card.Title class="text-base font-bold">Refractive Liquid Glass</Card.Title>
 					</Card.Header>
 					<Card.Content>
-						<p class="text-xs text-muted-foreground">When a menu opens, the background blurs out. Looks very pretty!</p>
+						<p class="text-xs text-muted-foreground">True refractive SVG filters simulating real glass light bending in Svelte. Dynamic control over IOR, bezel width, and chromatic aberration.</p>
 					</Card.Content>
 				</Card.Root>
 			</div>
