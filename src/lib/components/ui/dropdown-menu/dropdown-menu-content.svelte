@@ -10,10 +10,45 @@
 		align = "start",
 		portalProps,
 		class: className,
+		style,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 30,
+		displacementScale = 30,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		...restProps
 	}: DropdownMenuPrimitive.ContentProps & {
 		portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DropdownMenuPortal>>;
+		style?: string;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	} = $props();
+
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	let openSubCount = $state(0);
 	setContext("dropdown-menu-content-state", {
@@ -62,7 +97,7 @@
 			isSubOpen && "opacity-80 blur-[1.6px] scale-[0.97] pointer-events-none",
 			className,
 		)}
-		style="--specular-angle: {activeAngle}deg;"
+		style="--specular-angle: {activeAngle}deg; {style ?? ''}; {lgState.backdropStyle}"
 		onmousemove={handleMouseMove}
 		onmouseleave={handleMouseLeave}
 		{...restProps}
@@ -70,6 +105,19 @@
 		{@render restProps.children?.()}
 		<div class="dropdown-content-specular pointer-events-none absolute inset-0 rounded-3xl z-20"></div>
 	</DropdownMenuPrimitive.Content>
+	{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+		<LiquidGlassFilter
+			filterId={lgState.filterId}
+			displacementMapUri={lgState.displacementMapUri}
+			specularMapUri={lgState.specularMapUri}
+			width={lgState.width}
+			height={lgState.height}
+			displacementScale={displacementScale}
+			saturationBoost={saturationBoost}
+			backgroundBlur={backgroundBlur}
+			chromaticAberration={chromaticAberration}
+		/>
+	{/if}
 </DropdownMenuPortal>
 
 <style>

@@ -9,9 +9,52 @@
 		specularAngle?: number;
 		scale?: boolean;
 		magnetic?: boolean;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	};
 
-	let { ref = $bindable(null), class: className, children, specular = true, specularAngle = undefined, scale = true, magnetic = true, style, ...restProps }: Props = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		specular = true,
+		specularAngle = undefined,
+		scale = true,
+		magnetic = true,
+		style,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 20,
+		displacementScale = 40,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
+		...restProps
+	}: Props = $props();
+
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur,
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	let hoverAngle = $state<number | null>(null);
 	let ripples = $state<{ id: number; x: number; y: number; size: number; isReleased: boolean }[]>([]);
@@ -241,9 +284,10 @@
 		data-slot="select-trigger"
 		data-size={"default"}
 		class={cn(
-			"border-input data-placeholder:text-muted-foreground dark:bg-input/30 dark:hover:bg-input/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 gap-1.5 rounded-full border bg-transparent py-2 pr-2 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] data-[size=default]:h-10 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 [&_svg:not([class*='size-'])]:size-4 flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0 relative z-10",
+			"border-input data-placeholder:text-muted-foreground dark:bg-input/30 dark:hover:bg-input/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 gap-1.5 rounded-full bg-transparent py-2 pr-2 pl-2.5 text-sm shadow-xs transition-[color,box-shadow] data-[size=default]:h-10 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 [&_svg:not([class*='size-'])]:size-4 flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0 relative z-10",
 			className,
 		)}
+		style={`${style ?? ""}; ${lgState.backdropStyle}`}
 		{...restProps}
 	>
 		{@render children?.()}
@@ -253,6 +297,20 @@
 		<div class="select-trigger-specular pointer-events-none absolute inset-0 rounded-full z-20"></div>
 	{/if}
 </div>
+
+{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+	<LiquidGlassFilter
+		filterId={lgState.filterId}
+		displacementMapUri={lgState.displacementMapUri}
+		specularMapUri={lgState.specularMapUri}
+		width={lgState.width}
+		height={lgState.height}
+		{displacementScale}
+		{saturationBoost}
+		{backgroundBlur}
+		{chromaticAberration}
+	/>
+{/if}
 
 <style>
 	@property --specular-angle {

@@ -94,37 +94,10 @@
 <div class="flex flex-row w-screen min-h-screen bg-background text-foreground overflow-hidden">
 	<aside class="w-full md:w-80 max-h-screen shrink-0 transition-all duration-300 relative z-30" class:hidden={!isIndex} class:md:flex={true}>
 		<div class="flex flex-col items-stretch w-full bg-muted/0">
-			<div class="p-6 flex flex-row items-center justify-between">
-				<span class="text-lg font-bold text-foreground">Grgurevic UI</span>
-				<div class="flex flex-row gap-2">
-					<Button variant="translucent" size="icon" href="/">
-						<House class="size-4" />
-					</Button>
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger>
-							<Button variant="translucent" size="icon"><Sun class="size-4" /></Button>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content class="w-40" align="end">
-							<DropdownMenu.Label>Theme Settings</DropdownMenu.Label>
-							<DropdownMenu.Separator />
-							<DropdownMenu.RadioGroup value={mode.current} onValueChange={(val) => setMode(val as any)}>
-								<DropdownMenu.RadioItem value="light">
-									<Sun class="mr-2 size-4" />
-									<span>Light</span>
-								</DropdownMenu.RadioItem>
-								<DropdownMenu.RadioItem value="dark">
-									<Moon class="mr-2 size-4" />
-									<span>Dark</span>
-								</DropdownMenu.RadioItem>
-								<DropdownMenu.RadioItem value="system">
-									<Settings class="mr-2 size-4" />
-									<span>System</span>
-								</DropdownMenu.RadioItem>
-							</DropdownMenu.RadioGroup>
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
-				</div>
-			</div>
+			<a href="/" class="p-6 flex flex-row items-center justify-between">
+				<img src="/logo/logo_light.svg" alt="logo" class="w-full dark:block hidden" />
+				<img src="/logo/logo_dark.svg" alt="logo" class="w-full dark:hidden block" />
+			</a>
 
 			<div class="px-6">
 				<InputGroup.Root>

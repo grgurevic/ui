@@ -18,11 +18,10 @@
 </script>
 
 <NavigationStack.Root>
-	<NavigationStack.Header title="Liquid Glass">
+	<NavigationStack.Header title="">
 		{#snippet leading()}
-			<Button variant="translucent" size="icon" href="https://grgurevic.click">
-				<House class="size-4" />
-			</Button>
+			<img src="/logo/logo_light.svg" alt="logo" class="h-10 md:h-12 dark:block hidden" />
+			<img src="/logo/logo_dark.svg" alt="logo" class="h-10 md:h-12 dark:hidden block" />
 		{/snippet}
 		{#snippet trailing()}
 			<div class="flex flex-row gap-2">
@@ -59,7 +58,7 @@
 
 	<div class="flex flex-col items-center w-full min-h-screen px-6 py-12 md:py-24 relative overflow-hidden gap-16 md:gap-24">
 		<div class="flex flex-col items-center max-w-3xl text-center gap-6 z-10">
-			<NavigationStack.LargeTitle class="text-5xl md:text-7xl">Liquid Glass</NavigationStack.LargeTitle>
+			<NavigationStack.LargeTitle class="text-5xl md:text-7xl">Grgurevic UI</NavigationStack.LargeTitle>
 
 			<p class="text-lg md:text-xl text-muted-foreground font-normal max-w-2xl leading-relaxed">
 				a svelte 5 ui lib built on top of shadcn-svelte. components that look like they were pulled straight out of your iphone. includes elastic physics, specular highlights that adjust based on your

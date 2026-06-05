@@ -57,37 +57,35 @@
 
 		<div class="flex flex-col gap-3">
 			<span class="text-sm font-semibold text-muted-foreground ml-1">Preview</span>
-			<div
-				class="h-64 w-full flex flex-col items-center justify-center bg-[url(https://www.iclarified.com/images/news/97554/465552/465552.jpg)] bg-cover rounded-3xl relative border border-border/20 shadow-md overflow-hidden group select-none"
-			>
-				<div class="absolute inset-0 bg-black/10 backdrop-blur-xs"></div>
+			<div class="h-64 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group select-none">
+				<div class="relative z-10">
+					<Dialog.Root>
+						<Dialog.Trigger>
+							{#snippet child({ props })}
+								<Button variant="prominent" class="shadow-2xl" {...props}>Trigger Dialog Alert</Button>
+							{/snippet}
+						</Dialog.Trigger>
+						<Dialog.Content liquidGlass={true}>
+							<Dialog.Header>
+								<Dialog.Title>Allow Notifications?</Dialog.Title>
+								<Dialog.Description>Notifications may include alerts, sounds, and icon badges. You can configure this anytime in settings.</Dialog.Description>
+							</Dialog.Header>
 
-				<Dialog.Root>
-					<Dialog.Trigger>
-						{#snippet child({ props })}
-							<Button variant="prominent" class="shadow-2xl" {...props}>Trigger Dialog Alert</Button>
-						{/snippet}
-					</Dialog.Trigger>
-					<Dialog.Content>
-						<Dialog.Header>
-							<Dialog.Title>Allow Notifications?</Dialog.Title>
-							<Dialog.Description>Notifications may include alerts, sounds, and icon badges. You can configure this anytime in settings.</Dialog.Description>
-						</Dialog.Header>
-
-						<Dialog.Footer>
-							<Dialog.Close>
-								{#snippet child({ props })}
-									<Button variant="translucent" specular={false} magnetic={false} scale={false} class="flex-1 text-xs" {...props}>Don't Allow</Button>
-								{/snippet}
-							</Dialog.Close>
-							<Dialog.Close>
-								{#snippet child({ props })}
-									<Button variant="prominent" specular={false} magnetic={false} scale={false} class="flex-1 text-xs font-bold" {...props}>Allow</Button>
-								{/snippet}
-							</Dialog.Close>
-						</Dialog.Footer>
-					</Dialog.Content>
-				</Dialog.Root>
+							<Dialog.Footer>
+								<Dialog.Close>
+									{#snippet child({ props })}
+										<Button variant="translucent" specular={false} magnetic={false} scale={false} class="flex-1 text-xs" {...props}>Don't Allow</Button>
+									{/snippet}
+								</Dialog.Close>
+								<Dialog.Close>
+									{#snippet child({ props })}
+										<Button variant="prominent" specular={false} magnetic={false} scale={false} class="flex-1 text-xs font-bold" {...props}>Allow</Button>
+									{/snippet}
+								</Dialog.Close>
+							</Dialog.Footer>
+						</Dialog.Content>
+					</Dialog.Root>
+				</div>
 			</div>
 		</div>
 
@@ -119,6 +117,16 @@
 						<span class="font-mono font-bold text-primary text-sm">Dialog.Content</span>
 					</div>
 					<p class="text-sm text-muted-foreground">The floating glass prompt box styled with fade-in and scale-in Svelte animations.</p>
+					<ul class="text-xs font-mono flex flex-col gap-1 border-t border-border/10 pt-2 text-foreground/80 mt-1">
+						<li>• <span class="font-bold text-primary">liquidGlass:</span> boolean (false) - Enables physical liquid glass refraction.</li>
+						<li>• <span class="font-bold text-primary">refractiveIndex:</span> number (1.5) - Index of refraction (1.0 to 2.4).</li>
+						<li>• <span class="font-bold text-primary">bezelWidth:</span> number (30) - Depth of bezel refraction zone (px).</li>
+						<li>• <span class="font-bold text-primary">displacementScale:</span> number (40) - Refraction offset scale intensity.</li>
+						<li>• <span class="font-bold text-primary">surfaceProfile:</span> "circle" | "squircle" | "concave" | "lip" ("squircle") - Bezel profile shape.</li>
+						<li>• <span class="font-bold text-primary">chromaticAberration:</span> boolean (false) - Enables RGB channel prism split.</li>
+						<li>• <span class="font-bold text-primary">saturationBoost:</span> number (1.3) - Color saturation multiplier.</li>
+						<li>• <span class="font-bold text-primary">backgroundBlur:</span> number (0.3) - Pre-blur softening factor.</li>
+					</ul>
 				</div>
 			</div>
 		</div>

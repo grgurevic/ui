@@ -42,11 +42,20 @@
 			specularAngle?: number;
 			scale?: boolean;
 			magnetic?: boolean;
+			liquidGlass?: boolean;
+			refractiveIndex?: number;
+			bezelWidth?: number;
+			displacementScale?: number;
+			surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+			chromaticAberration?: boolean;
+			saturationBoost?: number;
+			backgroundBlur?: number;
 		};
 </script>
 
 <script lang="ts">
 	import { onDestroy, getContext } from "svelte";
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
 
 	const inButtonGroup = getContext<boolean>("in-button-group") || false;
 
@@ -63,9 +72,32 @@
 		scale = true,
 		magnetic = true,
 		style,
+		liquidGlass = false,
+		refractiveIndex = 2.4,
+		bezelWidth = 20,
+		displacementScale = 40,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		children,
 		...restProps
 	}: ButtonProps = $props();
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur,
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	let isMagnetic = $derived(inButtonGroup ? false : magnetic);
 	let isScale = $derived(inButtonGroup ? false : scale);
@@ -277,16 +309,18 @@
 
 	let transformStyle = $derived(transformParts.length > 0 ? `transform: ${transformParts.join(" ")};` : "");
 
-	let buttonStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}`);
+	let buttonStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}; ${lgState.backdropStyle}`);
 </script>
 
 {#if href}
 	<a
 		bind:this={ref}
 		data-slot="button"
+		data-variant={variant}
 		class={cn(
 			buttonVariants({ variant, size }),
 			inButtonGroup ? "bg-transparent! hover:bg-transparent! border-none! shadow-none! backdrop-blur-none! hover:text-foreground/90 dark:hover:text-white font-normal" : showSpecular && "btn-specular",
+			liquidGlass && "liquid-glass-active",
 			className,
 		)}
 		style={buttonStyle}
@@ -314,9 +348,11 @@
 	<button
 		bind:this={ref}
 		data-slot="button"
+		data-variant={variant}
 		class={cn(
 			buttonVariants({ variant, size }),
 			inButtonGroup ? "bg-transparent! hover:bg-transparent! border-none! shadow-none! backdrop-blur-none! hover:text-foreground/90 dark:hover:text-white font-normal" : showSpecular && "btn-specular",
+			liquidGlass && "liquid-glass-active",
 			className,
 		)}
 		style={buttonStyle}
@@ -338,6 +374,20 @@
 			<span class="contents">{@render children?.()}</span>
 		</span>
 	</button>
+{/if}
+
+{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+	<LiquidGlassFilter
+		filterId={lgState.filterId}
+		displacementMapUri={lgState.displacementMapUri}
+		specularMapUri={lgState.specularMapUri}
+		width={lgState.width}
+		height={lgState.height}
+		{displacementScale}
+		{saturationBoost}
+		{backgroundBlur}
+		{chromaticAberration}
+	/>
 {/if}
 
 <style>
@@ -379,8 +429,7 @@
 			transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
 			background-color 0.2s,
 			border-color 0.2s;
-		-webkit-mask-image: -webkit-radial-gradient(white, black);
-		mask-image: radial-gradient(white, black);
+		overflow: hidden;
 	}
 
 	.ripple-container {

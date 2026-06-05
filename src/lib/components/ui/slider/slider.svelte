@@ -10,11 +10,29 @@
 		class: className,
 		min = 0,
 		max = 100,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 8,
+		displacementScale = 25,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		...restProps
 	}: WithoutChildrenOrChild<SliderPrimitive.RootProps> & {
 		min?: number;
 		max?: number;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	} = $props();
+
+	import SliderThumbInner from "./slider-thumb-inner.svelte";
 
 	let rootEl = $state<HTMLElement | null>(null);
 	let isDragging = $state<boolean>(false);
@@ -156,15 +174,19 @@ get along, so we bypass type checking by casting `value` to `never`.
 				index={thumb.index}
 				class="block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50 pointer-events-auto h-5 w-8 rounded-full focus-visible:outline-hidden group/slider-thumb"
 			>
-				<div
-					role="presentation"
-					bind:this={thumbElements[thumb.index]}
+				<SliderThumbInner
+					{isDragging}
+					bind:thumbElement={thumbElements[thumb.index]}
 					onpointerdown={handlePointerDown}
-					class={cn(
-						"border block w-full h-full select-none transition-[background-color,border-color,backdrop-filter] duration-200 rounded-full shadow-sm",
-						isDragging ? "dark:bg-primary-foreground/15 border-primary-foreground/15 backdrop-blur-[2px] shadow-none" : "bg-white dark:bg-primary-foreground/90 border-border",
-					)}
-				></div>
+					{liquidGlass}
+					{refractiveIndex}
+					{bezelWidth}
+					{displacementScale}
+					{surfaceProfile}
+					{chromaticAberration}
+					{saturationBoost}
+					{backgroundBlur}
+				/>
 			</SliderPrimitive.Thumb>
 		{/each}
 	{/snippet}

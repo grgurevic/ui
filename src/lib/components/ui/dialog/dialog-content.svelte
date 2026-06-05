@@ -14,12 +14,47 @@
 		portalProps,
 		children,
 		showCloseButton = true,
+		style,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 30,
+		displacementScale = 40,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		...restProps
 	}: WithoutChildrenOrChild<DialogPrimitive.ContentProps> & {
 		portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DialogPortal>>;
 		children: Snippet;
 		showCloseButton?: boolean;
+		style?: string;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	} = $props();
+
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 </script>
 
 <DialogPortal {...portalProps}>
@@ -29,8 +64,10 @@
 		data-slot="dialog-content"
 		class={cn(
 			"bg-background/80 backdrop-blur-lg text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-4xl p-6 text-sm ring-1 duration-100 sm:max-w-md fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none dialog-specular",
+			liquidGlass && "liquid-glass-active",
 			className,
 		)}
+		style={`${style ?? ""}; ${lgState.backdropStyle}`}
 		{...restProps}
 	>
 		{@render children?.()}
@@ -45,6 +82,19 @@
 			</DialogPrimitive.Close>
 		{/if}
 	</DialogPrimitive.Content>
+	{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+		<LiquidGlassFilter
+			filterId={lgState.filterId}
+			displacementMapUri={lgState.displacementMapUri}
+			specularMapUri={lgState.specularMapUri}
+			width={lgState.width}
+			height={lgState.height}
+			displacementScale={displacementScale}
+			saturationBoost={saturationBoost}
+			backgroundBlur={backgroundBlur}
+			chromaticAberration={chromaticAberration}
+		/>
+	{/if}
 </DialogPortal>
 
 <style>

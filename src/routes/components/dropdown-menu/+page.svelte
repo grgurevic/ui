@@ -65,89 +65,91 @@
 
 		<div class="flex flex-col gap-3">
 			<span class="text-sm font-semibold text-muted-foreground ml-1">Preview</span>
-			<div class="h-64 w-full flex items-center justify-center bg-card rounded-3xl relative border border-border/20 shadow-md gap-4 select-none">
-				<DropdownMenu.Root>
-					<DropdownMenu.Trigger>
-						{#snippet child({ props })}
-							<Button variant="prominent" class="shadow-xl" {...props}>Actions Menu</Button>
-						{/snippet}
-					</DropdownMenu.Trigger>
-					<DropdownMenu.Content class="w-56" align="center">
-						<DropdownMenu.Label>My Account</DropdownMenu.Label>
-						<DropdownMenu.Separator />
-						<DropdownMenu.Group>
-							<DropdownMenu.Item>
-								<User class="mr-2 size-4" />
-								<span>Profile</span>
-								<DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
+			<div class="h-64 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group select-none">
+				<div class="relative z-10 flex items-center gap-4">
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger>
+							{#snippet child({ props })}
+								<Button variant="prominent" class="shadow-xl" {...props}>Actions Menu</Button>
+							{/snippet}
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content class="w-56" align="center" liquidGlass={true}>
+							<DropdownMenu.Label>My Account</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Group>
+								<DropdownMenu.Item>
+									<User class="mr-2 size-4" />
+									<span>Profile</span>
+									<DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item>
+									<CreditCard class="mr-2 size-4" />
+									<span>Billing</span>
+									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+							</DropdownMenu.Group>
+
+							<DropdownMenu.Separator />
+
+							<DropdownMenu.Group>
+								<DropdownMenu.Sub>
+									<DropdownMenu.SubTrigger>
+										<Plus class="mr-2 size-4" />
+										<span>Invite Users</span>
+									</DropdownMenu.SubTrigger>
+									<DropdownMenu.SubContent sideOffset={-180}>
+										<DropdownMenu.Item>
+											<Mail class="mr-2 size-4" />
+											<span>Email Invitation</span>
+										</DropdownMenu.Item>
+										<DropdownMenu.Item>
+											<MessageSquare class="mr-2 size-4" />
+											<span>SMS Invitation</span>
+										</DropdownMenu.Item>
+									</DropdownMenu.SubContent>
+								</DropdownMenu.Sub>
+							</DropdownMenu.Group>
+
+							<DropdownMenu.Separator />
+
+							<DropdownMenu.Item variant="destructive">
+								<LogOut class="mr-2 size-4" />
+								<span>Log out</span>
+								<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
 							</DropdownMenu.Item>
-							<DropdownMenu.Item>
-								<CreditCard class="mr-2 size-4" />
-								<span>Billing</span>
-								<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
-							</DropdownMenu.Item>
-						</DropdownMenu.Group>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
 
-						<DropdownMenu.Separator />
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger>
+							{#snippet child({ props })}
+								<Button variant="bordered" {...props}>Editor Options</Button>
+							{/snippet}
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content class="w-56" align="center" liquidGlass={true}>
+							<DropdownMenu.Label>Toggles</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.CheckboxItem bind:checked={showSidebar}>
+								Show Sidebar
+								<DropdownMenu.Shortcut>⌘⌥B</DropdownMenu.Shortcut>
+							</DropdownMenu.CheckboxItem>
+							<DropdownMenu.CheckboxItem bind:checked={showStatusBar}>
+								Show Status Bar
+								<DropdownMenu.Shortcut>⌘/</DropdownMenu.Shortcut>
+							</DropdownMenu.CheckboxItem>
 
-						<DropdownMenu.Group>
-							<DropdownMenu.Sub>
-								<DropdownMenu.SubTrigger>
-									<Plus class="mr-2 size-4" />
-									<span>Invite Users</span>
-								</DropdownMenu.SubTrigger>
-								<DropdownMenu.SubContent sideOffset={-180}>
-									<DropdownMenu.Item>
-										<Mail class="mr-2 size-4" />
-										<span>Email Invitation</span>
-									</DropdownMenu.Item>
-									<DropdownMenu.Item>
-										<MessageSquare class="mr-2 size-4" />
-										<span>SMS Invitation</span>
-									</DropdownMenu.Item>
-								</DropdownMenu.SubContent>
-							</DropdownMenu.Sub>
-						</DropdownMenu.Group>
+							<DropdownMenu.Separator />
 
-						<DropdownMenu.Separator />
-
-						<DropdownMenu.Item variant="destructive">
-							<LogOut class="mr-2 size-4" />
-							<span>Log out</span>
-							<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
-						</DropdownMenu.Item>
-					</DropdownMenu.Content>
-				</DropdownMenu.Root>
-
-				<DropdownMenu.Root>
-					<DropdownMenu.Trigger>
-						{#snippet child({ props })}
-							<Button variant="bordered" {...props}>Editor Options</Button>
-						{/snippet}
-					</DropdownMenu.Trigger>
-					<DropdownMenu.Content class="w-56" align="center">
-						<DropdownMenu.Label>Toggles</DropdownMenu.Label>
-						<DropdownMenu.Separator />
-						<DropdownMenu.CheckboxItem bind:checked={showSidebar}>
-							Show Sidebar
-							<DropdownMenu.Shortcut>⌘⌥B</DropdownMenu.Shortcut>
-						</DropdownMenu.CheckboxItem>
-						<DropdownMenu.CheckboxItem bind:checked={showStatusBar}>
-							Show Status Bar
-							<DropdownMenu.Shortcut>⌘/</DropdownMenu.Shortcut>
-						</DropdownMenu.CheckboxItem>
-
-						<DropdownMenu.Separator />
-
-						<DropdownMenu.Label>Theme Profile</DropdownMenu.Label>
-						<DropdownMenu.Separator />
-						<DropdownMenu.RadioGroup bind:value={themeMode}>
-							<DropdownMenu.RadioItem value="light">Light Mode</DropdownMenu.RadioItem>
-							<DropdownMenu.RadioItem value="dark">Dark Mode</DropdownMenu.RadioItem>
-							<DropdownMenu.RadioItem value="system">System Default</DropdownMenu.RadioItem>
-						</DropdownMenu.RadioGroup>
-					</DropdownMenu.Content>
-				</DropdownMenu.Root>
+							<DropdownMenu.Label>Theme Profile</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.RadioGroup bind:value={themeMode}>
+								<DropdownMenu.RadioItem value="light">Light Mode</DropdownMenu.RadioItem>
+								<DropdownMenu.RadioItem value="dark">Dark Mode</DropdownMenu.RadioItem>
+								<DropdownMenu.RadioItem value="system">System Default</DropdownMenu.RadioItem>
+							</DropdownMenu.RadioGroup>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				</div>
 			</div>
 		</div>
 
@@ -237,6 +239,54 @@
 						<tr>
 							<td class="p-4 font-bold text-primary">DropdownMenu.Sub</td>
 							<td class="p-4 text-muted-foreground font-sans">Deep dropdown folder trigger to anchor nested sub-dropdown trees.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">liquidGlass</td>
+							<td class="p-4 font-mono text-xs">boolean</td>
+							<td class="p-4 font-mono text-xs">false</td>
+							<td class="p-4 text-muted-foreground">Enables physical liquid glass refraction (Chromium only).</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">refractiveIndex</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">1.5</td>
+							<td class="p-4 text-muted-foreground">IOR of glass curvature. Range 1.0 (air) to 2.4.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">bezelWidth</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">30</td>
+							<td class="p-4 text-muted-foreground">Depth of bezel refraction zone (px).</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">displacementScale</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">30</td>
+							<td class="p-4 text-muted-foreground">Intensity of physical refraction offset.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">surfaceProfile</td>
+							<td class="p-4 font-mono text-xs">"circle" | "squircle" | "concave" | "lip"</td>
+							<td class="p-4 font-mono text-xs">"squircle"</td>
+							<td class="p-4 text-muted-foreground">3D bezel curvature outline profile.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">chromaticAberration</td>
+							<td class="p-4 font-mono text-xs">boolean</td>
+							<td class="p-4 font-mono text-xs">false</td>
+							<td class="p-4 text-muted-foreground">Enables realistic RGB channel prism splitting.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">saturationBoost</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">1.3</td>
+							<td class="p-4 text-muted-foreground">Color saturation boost multiplier inside refracted zone.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">backgroundBlur</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">0.3</td>
+							<td class="p-4 text-muted-foreground">Slight pre-blur factor to hide SVG pixelation artifacts.</td>
 						</tr>
 					</tbody>
 				</table>

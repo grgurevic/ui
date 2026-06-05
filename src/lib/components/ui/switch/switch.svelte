@@ -1,8 +1,49 @@
 <script lang="ts">
 	import { Switch as SwitchPrimitive } from "bits-ui";
 	import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
+	import { onDestroy } from "svelte";
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
 
-	let { ref = $bindable(null), class: className, checked = $bindable(false), ...restProps }: WithoutChildrenOrChild<SwitchPrimitive.RootProps> = $props();
+	let {
+		ref = $bindable(null),
+		class: className,
+		checked = $bindable(false),
+		style,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 10,
+		displacementScale = 15,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
+		...restProps
+	}: WithoutChildrenOrChild<SwitchPrimitive.RootProps> & {
+		style?: string;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
+	} = $props();
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	let isSwitching = $state<boolean>(false);
 	let isHolding = $state<boolean>(false);
@@ -113,8 +154,6 @@
 			window.removeEventListener("mouseup", () => {});
 		}
 	});
-
-	import { onDestroy } from "svelte";
 </script>
 
 <SwitchPrimitive.Root
@@ -127,6 +166,7 @@
 		"data-checked:bg-primary data-unchecked:bg-black/25 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent shadow-xs aria-invalid:ring-3 h-[24px] w-[56px] peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
 		className,
 	)}
+	style={`${style ?? ""}; ${lgState.backdropStyle}`}
 	{...restProps}
 >
 	<SwitchPrimitive.Thumb
@@ -139,3 +179,17 @@
 		style={currentDragTranslate !== null ? `transform: translate3d(${currentDragTranslate}px, 0, 0) scale(${thumbScaleX}, 1); transform-origin: ${transformOrigin}; transition: none;` : ""}
 	/>
 </SwitchPrimitive.Root>
+
+{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+	<LiquidGlassFilter
+		filterId={lgState.filterId}
+		displacementMapUri={lgState.displacementMapUri}
+		specularMapUri={lgState.specularMapUri}
+		width={lgState.width}
+		height={lgState.height}
+		displacementScale={displacementScale}
+		saturationBoost={saturationBoost}
+		backgroundBlur={backgroundBlur}
+		chromaticAberration={chromaticAberration}
+	/>
+{/if}

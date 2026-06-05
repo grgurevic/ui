@@ -41,6 +41,14 @@
 		specularAngle?: number;
 		scale?: boolean;
 		magnetic?: boolean;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	};
 
 	let {
@@ -54,8 +62,33 @@
 		scale = true,
 		magnetic = true,
 		style,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 20,
+		displacementScale = 40,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		...props
 	}: Props = $props();
+
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	setContext("in-button-group", true);
 
@@ -268,7 +301,7 @@
 
 	let transformStyle = $derived(transformParts.length > 0 ? `transform: ${transformParts.join(" ")};` : "");
 
-	let inputGroupStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}`);
+	let inputGroupStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}; ${lgState.backdropStyle}`);
 </script>
 
 <div
@@ -292,6 +325,20 @@
 		<div class="button-group-specular pointer-events-none absolute inset-0 rounded-full z-20"></div>
 	{/if}
 </div>
+
+{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+	<LiquidGlassFilter
+		filterId={lgState.filterId}
+		displacementMapUri={lgState.displacementMapUri}
+		specularMapUri={lgState.specularMapUri}
+		width={lgState.width}
+		height={lgState.height}
+		displacementScale={displacementScale}
+		saturationBoost={saturationBoost}
+		backgroundBlur={backgroundBlur}
+		chromaticAberration={chromaticAberration}
+	/>
+{/if}
 
 <style>
 	@property --specular-angle {

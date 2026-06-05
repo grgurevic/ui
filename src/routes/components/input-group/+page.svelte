@@ -56,9 +56,9 @@
 
 		<div class="flex flex-col gap-3">
 			<span class="text-sm font-semibold text-muted-foreground ml-1">Preview</span>
-			<div class="h-56 w-full flex items-center justify-center bg-card rounded-3xl relative border border-border/20 shadow-md p-6">
-				<div class="w-full max-w-sm">
-					<InputGroup.Root {specular} {magnetic} {scale}>
+			<div class="h-64 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group">
+				<div class="relative z-10 w-full max-w-sm">
+					<InputGroup.Root {specular} {magnetic} {scale} liquidGlass={true}>
 						<InputGroup.Input placeholder="Search system settings..." bind:value />
 						<InputGroup.Addon>
 							<SearchIcon class="size-4 text-muted-foreground" />
@@ -128,6 +128,14 @@
 						<li>• <span class="font-bold text-primary">specular:</span> boolean (true) - Enables 3D border reflection glare.</li>
 						<li>• <span class="font-bold text-primary">magnetic:</span> boolean (true) - Attracts capsule center to pointer.</li>
 						<li>• <span class="font-bold text-primary">scale:</span> boolean (true) - Compresses capsule bounds on press.</li>
+<li>• <span class="font-bold text-primary">liquidGlass:</span> boolean (false) - Enables physical liquid glass refraction.</li>
+						<li>• <span class="font-bold text-primary">refractiveIndex:</span> number (1.5) - Index of refraction (1.0 to 2.4).</li>
+						<li>• <span class="font-bold text-primary">bezelWidth:</span> number (20) - Depth of bezel refraction zone (px).</li>
+						<li>• <span class="font-bold text-primary">displacementScale:</span> number (30) - Refraction offset scale intensity.</li>
+						<li>• <span class="font-bold text-primary">surfaceProfile:</span> "circle" | "squircle" | "concave" | "lip" ("squircle") - Bezel profile shape.</li>
+						<li>• <span class="font-bold text-primary">chromaticAberration:</span> boolean (false) - Enables RGB channel prism split.</li>
+						<li>• <span class="font-bold text-primary">saturationBoost:</span> number (1.3) - Color saturation multiplier.</li>
+						<li>• <span class="font-bold text-primary">backgroundBlur:</span> number (0.3) - Pre-blur softening factor.</li>
 					</ul>
 				</div>
 

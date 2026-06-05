@@ -64,8 +64,8 @@
 
 		<div class="flex flex-col gap-3">
 			<span class="text-sm font-semibold text-muted-foreground ml-1">Preview</span>
-			<div class="py-10 w-full flex items-center justify-center border-y border-border/10 gap-4">
-				<div class="w-full max-w-sm flex flex-col gap-6 select-none">
+			<div class="py-12 px-6 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group">
+				<div class="w-full max-w-sm flex flex-col gap-6 select-none relative z-10">
 					<List.Section header="Network Connectivity">
 						<List.Root>
 							<List.Row>

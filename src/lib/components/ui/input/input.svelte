@@ -13,6 +13,7 @@
 		magnetic?: boolean;
 		ripple?: boolean;
 		clearButton?: boolean;
+		unstyled?: boolean;
 	};
 
 	let {
@@ -28,9 +29,47 @@
 		magnetic = true,
 		ripple = true,
 		clearButton = false,
+		unstyled = false,
 		style,
+		liquidGlass = true,
+		refractiveIndex = 1.5,
+		bezelWidth = 24,
+		displacementScale = 40,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		...restProps
-	}: Props = $props();
+	}: Props & {
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
+		unstyled?: boolean;
+	} = $props();
+
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass: unstyled ? false : liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur,
+	}));
+
+	let wrapperRef = $state<HTMLElement | null>(null);
+
+	$effect(() => {
+		lgState.ref = wrapperRef;
+	});
 
 	let hoverAngle = $state<number | null>(null);
 	let ripples = $state<{ id: number; x: number; y: number; size: number; isReleased: boolean }[]>([]);
@@ -254,12 +293,39 @@
 
 	let transformStyle = $derived(transformParts.length > 0 ? `transform: ${transformParts.join(" ")};` : "");
 
-	let inputStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}`);
+	let inputStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}; ${lgState.backdropStyle}`);
 </script>
 
-{#if type === "file"}
+{#if unstyled}
+	{#if type === "file"}
+		<input
+			bind:this={ref}
+			data-slot={dataSlot}
+			class={cn("outline-none focus:outline-none", className)}
+			type="file"
+			bind:files
+			bind:value
+			{...restProps}
+		/>
+	{:else}
+		<input
+			bind:this={ref}
+			data-slot={dataSlot}
+			class={cn("outline-none focus:outline-none", className)}
+			{type}
+			bind:value
+			{...restProps}
+		/>
+	{/if}
+{:else if type === "file"}
 	<div
-		class="input-wrapper relative w-full inline-flex rounded-md overflow-hidden"
+		bind:this={wrapperRef}
+		class={cn(
+			"input-wrapper relative w-full inline-flex rounded-md overflow-hidden border border-black/5 dark:border-white/10 shadow-xs",
+			liquidGlass ? "bg-muted/30 liquid-glass-active" : "bg-muted/60",
+			"has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-[[data-slot][aria-invalid=true]]:ring-3",
+			className
+		)}
 		role="presentation"
 		onpointermove={handlePointerMove}
 		onpointerdown={handlePointerDown}
@@ -275,9 +341,8 @@
 			bind:this={ref}
 			data-slot={dataSlot}
 			class={cn(
-				"bg-muted/60 dark:border-white/10 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-9 rounded-md border px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] file:h-7 file:text-sm file:font-medium aria-invalid:ring-3 md:text-sm file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 relative z-10",
-				clearButton && value ? "pr-9" : "",
-				className,
+				"bg-transparent border-0 ring-0 focus:ring-0 focus:outline-none focus:border-0 h-9 px-2.5 py-1 text-base file:h-7 file:text-sm file:font-medium md:text-sm file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 relative z-10",
+				clearButton && value ? "pr-9" : ""
 			)}
 			type="file"
 			bind:files
@@ -303,7 +368,13 @@
 	</div>
 {:else}
 	<div
-		class="input-wrapper relative w-full inline-flex rounded-full overflow-hidden"
+		bind:this={wrapperRef}
+		class={cn(
+			"input-wrapper relative w-full inline-flex rounded-full overflow-hidden border border-black/5 dark:border-white/10 shadow-xs",
+			liquidGlass ? "bg-muted/30 liquid-glass-active" : "bg-muted/60",
+			"has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 has-[[data-slot][aria-invalid=true]]:ring-3",
+			className
+		)}
 		role="presentation"
 		onpointermove={handlePointerMove}
 		onpointerdown={handlePointerDown}
@@ -319,9 +390,8 @@
 			bind:this={ref}
 			data-slot={dataSlot}
 			class={cn(
-				"bg-muted/60 dark:border-white/10 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 h-10 rounded-full border px-3 text-base shadow-xs transition-[color,box-shadow] file:h-7 file:text-sm file:font-medium aria-invalid:ring-3 md:text-sm file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 relative z-10",
-				clearButton && value ? "pr-9" : "",
-				className,
+				"bg-transparent border-0 ring-0 focus:ring-0 focus:outline-none focus:border-0 h-10 px-3 text-base file:h-7 file:text-sm file:font-medium md:text-sm file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 relative z-10",
+				clearButton && value ? "pr-9" : ""
 			)}
 			{type}
 			bind:value
@@ -344,6 +414,20 @@
 	</div>
 {/if}
 
+{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+	<LiquidGlassFilter
+		filterId={lgState.filterId}
+		displacementMapUri={lgState.displacementMapUri}
+		specularMapUri={lgState.specularMapUri}
+		width={lgState.width}
+		height={lgState.height}
+		{displacementScale}
+		{saturationBoost}
+		{backgroundBlur}
+		{chromaticAberration}
+	/>
+{/if}
+
 <style>
 	@property --specular-angle {
 		syntax: "<angle>";
@@ -355,7 +439,8 @@
 		transition:
 			transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
 			background-color 0.2s,
-			border-color 0.2s;
+			border-color 0.2s,
+			box-shadow 0.2s;
 		transform: translate3d(0, 0, 0);
 	}
 

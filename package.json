@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "bun vite dev",
-		"build": "vite build",
+		"build": "bunx shadcn-svelte registry build && vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -36,6 +36,7 @@
 	},
 	"dependencies": {
 		"gsap": "^3.15.0",
-		"mode-watcher": "^1.1.0"
+		"mode-watcher": "^1.1.0",
+		"posthog-js": "^1.379.1"
 	}
 }

@@ -75,12 +75,8 @@
 
 		<div class="flex flex-col gap-3">
 			<span class="text-sm font-semibold text-muted-foreground ml-1">Preview</span>
-			<div
-				class="py-12 px-6 w-full flex items-center justify-center bg-[url(https://www.iclarified.com/images/news/97554/465552/465552.jpg)] bg-cover rounded-3xl relative border border-border/20 shadow-md overflow-hidden group"
-			>
-				<div class="absolute inset-0 bg-black/10 backdrop-blur-xs"></div>
-
-				<Card.Root {size} {specular} {magnetic} {scale} {ripple} class="w-full max-w-sm bg-card/60 backdrop-blur-md border border-white/10 shadow-2xl relative z-10 select-none">
+			<div class="py-12 px-6 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group">
+				<Card.Root {size} {specular} {magnetic} {scale} {ripple} liquidGlass={true} class="w-full max-w-sm bg-card/60 backdrop-blur-md border border-white/10 shadow-2xl relative z-10 select-none">
 					<Card.Header>
 						<Card.Title>Smart Thermostat</Card.Title>
 						<Card.Description>Intelligent climate control with scheduling and presets.</Card.Description>
@@ -220,6 +216,54 @@
 							<td class="p-4 font-mono text-xs">boolean</td>
 							<td class="p-4 font-mono text-xs">false</td>
 							<td class="p-4 text-muted-foreground">Enables high-fidelity ambient light ripples on surface clicks.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">liquidGlass</td>
+							<td class="p-4 font-mono text-xs">boolean</td>
+							<td class="p-4 font-mono text-xs">false</td>
+							<td class="p-4 text-muted-foreground">Enables physical liquid glass refraction (Chromium only).</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">refractiveIndex</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">1.5</td>
+							<td class="p-4 text-muted-foreground">IOR of glass curvature. Range 1.0 (air) to 2.4.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">bezelWidth</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">30</td>
+							<td class="p-4 text-muted-foreground">Depth of bezel refraction zone (px).</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">displacementScale</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">40</td>
+							<td class="p-4 text-muted-foreground">Intensity of physical refraction offset.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">surfaceProfile</td>
+							<td class="p-4 font-mono text-xs">"circle" | "squircle" | "concave" | "lip"</td>
+							<td class="p-4 font-mono text-xs">"squircle"</td>
+							<td class="p-4 text-muted-foreground">3D bezel curvature outline profile.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">chromaticAberration</td>
+							<td class="p-4 font-mono text-xs">boolean</td>
+							<td class="p-4 font-mono text-xs">false</td>
+							<td class="p-4 text-muted-foreground">Enables realistic RGB channel prism splitting.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">saturationBoost</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">1.3</td>
+							<td class="p-4 text-muted-foreground">Color saturation boost multiplier inside refracted zone.</td>
+						</tr>
+						<tr class="bg-primary/5">
+							<td class="p-4 font-mono font-bold text-primary">backgroundBlur</td>
+							<td class="p-4 font-mono text-xs">number</td>
+							<td class="p-4 font-mono text-xs">0.3</td>
+							<td class="p-4 text-muted-foreground">Slight pre-blur factor to hide SVG pixelation artifacts.</td>
 						</tr>
 					</tbody>
 				</table>

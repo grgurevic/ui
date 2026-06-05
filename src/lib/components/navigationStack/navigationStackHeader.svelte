@@ -192,7 +192,7 @@
 	.progressive-blur-container > .dark-gradient {
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
 		transition:
 			background 0.3s,
 			opacity 0.3s;

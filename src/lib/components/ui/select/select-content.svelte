@@ -14,10 +14,45 @@
 		portalProps,
 		children,
 		preventScroll = true,
+		style,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 30,
+		displacementScale = 30,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		...restProps
 	}: WithoutChild<SelectPrimitive.ContentProps> & {
 		portalProps?: WithoutChildrenOrChild<ComponentProps<typeof SelectPortal>>;
+		style?: string;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	} = $props();
+
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	let interactionState = $state({ isKeyboardActive: false });
 	setContext("select-interaction", interactionState);
@@ -53,7 +88,7 @@
 			"dark:bg-input/80 text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 min-w-36 rounded-3xl shadow-md ring-1 duration-100 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 relative isolate z-50 overflow-x-hidden overflow-y-auto backdrop-blur-2xl p-1.5",
 			className,
 		)}
-		style="--specular-angle: {activeAngle}deg;"
+		style="--specular-angle: {activeAngle}deg; {style ?? ''}; {lgState.backdropStyle}"
 		onmousemove={(e) => {
 			handleMouseMove(e);
 			interactionState.isKeyboardActive = false;
@@ -74,6 +109,19 @@
 		<SelectScrollDownButton />
 		<div class="select-content-specular pointer-events-none absolute inset-0 rounded-3xl z-20"></div>
 	</SelectPrimitive.Content>
+	{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+		<LiquidGlassFilter
+			filterId={lgState.filterId}
+			displacementMapUri={lgState.displacementMapUri}
+			specularMapUri={lgState.specularMapUri}
+			width={lgState.width}
+			height={lgState.height}
+			displacementScale={displacementScale}
+			saturationBoost={saturationBoost}
+			backgroundBlur={backgroundBlur}
+			chromaticAberration={chromaticAberration}
+		/>
+	{/if}
 </SelectPortal>
 
 <style>

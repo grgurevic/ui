@@ -14,6 +14,14 @@
 		scale = false,
 		ripple = false,
 		style,
+		liquidGlass = false,
+		refractiveIndex = 1.5,
+		bezelWidth = 30,
+		displacementScale = 40,
+		surfaceProfile = "squircle",
+		chromaticAberration = false,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		...restProps
 	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
 		size?: "default" | "sm";
@@ -25,7 +33,32 @@
 		scale?: boolean;
 		/** Enable press ripple light burst effect */
 		ripple?: boolean;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	} = $props();
+
+	import { createLiquidGlass, LiquidGlassFilter } from "$lib/components/ui/glass-view/index.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur,
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	let hoverAngle = $state<number | null>(null);
 	let ripples = $state<{ id: number; x: number; y: number; size: number; isReleased: boolean }[]>([]);
@@ -202,7 +235,7 @@
 		return parts.length > 0 ? `transform: ${parts.join(" ")};` : "";
 	});
 
-	let cardStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}`);
+	let cardStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}; ${lgState.backdropStyle}`);
 </script>
 
 <div
@@ -211,6 +244,7 @@
 	data-size={size}
 	class={cn(
 		"card-comp relative bg-card text-card-foreground gap-6 overflow-hidden rounded-3xl py-6 text-sm shadow-xs shadow-[inset_0_0_0_1px_var(--border)] has-[>img:first-child]:pt-0 data-[size=sm]:gap-4 data-[size=sm]:py-4 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl group/card flex flex-col",
+		liquidGlass && "liquid-glass-active",
 		(magnetic || scale) && "transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
 		className,
 	)}
@@ -234,6 +268,20 @@
 		<div class="card-specular pointer-events-none absolute inset-0 z-20"></div>
 	{/if}
 </div>
+
+{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+	<LiquidGlassFilter
+		filterId={lgState.filterId}
+		displacementMapUri={lgState.displacementMapUri}
+		specularMapUri={lgState.specularMapUri}
+		width={lgState.width}
+		height={lgState.height}
+		{displacementScale}
+		{saturationBoost}
+		{backgroundBlur}
+		{chromaticAberration}
+	/>
+{/if}
 
 <style>
 	@property --specular-angle {

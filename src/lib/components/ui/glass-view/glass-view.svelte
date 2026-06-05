@@ -10,6 +10,8 @@
 <script lang="ts">
 	import type { HTMLAttributes } from "svelte/elements";
 	import { onDestroy } from "svelte";
+	import { generateDisplacementMap } from "./generate-displacement-map.js";
+	import LiquidGlassFilter from "./liquid-glass-filter.svelte";
 
 	let {
 		ref = $bindable(null),
@@ -21,6 +23,14 @@
 		scale = true,
 		magnetic = true,
 		style,
+		liquidGlass = true,
+		refractiveIndex = 1.5,
+		bezelWidth = 24,
+		displacementScale = 40,
+		surfaceProfile = "squircle",
+		chromaticAberration = true,
+		saturationBoost = 1.3,
+		backgroundBlur = 0.3,
 		children,
 		...restProps
 	}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
@@ -30,6 +40,14 @@
 		specularAngle?: number;
 		scale?: boolean;
 		magnetic?: boolean;
+		liquidGlass?: boolean;
+		refractiveIndex?: number;
+		bezelWidth?: number;
+		displacementScale?: number;
+		surfaceProfile?: "circle" | "squircle" | "concave" | "lip";
+		chromaticAberration?: boolean;
+		saturationBoost?: number;
+		backgroundBlur?: number;
 	} = $props();
 
 	let hoverAngle = $state<number | null>(null);
@@ -42,6 +60,23 @@
 	let scaleX = $state(1);
 	let scaleY = $state(1);
 	let elRect = $state<DOMRect | null>(null);
+
+	import { createLiquidGlass } from "./liquid-glass.svelte.js";
+
+	const lgState = createLiquidGlass(() => ({
+		liquidGlass,
+		refractiveIndex,
+		bezelWidth,
+		displacementScale,
+		surfaceProfile,
+		chromaticAberration,
+		saturationBoost,
+		backgroundBlur,
+	}));
+
+	$effect(() => {
+		lgState.ref = ref;
+	});
 
 	function handlePointerMove(e: PointerEvent) {
 		if (currentActiveRippleId !== null) return;
@@ -180,14 +215,16 @@
 	});
 
 	let transformStyle = $derived(transformParts.length > 0 ? `transform: ${transformParts.join(" ")};` : "");
-	let elStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle}`);
+
+	let elStyle = $derived(`${style ?? ""}; ${showSpecular ? `--specular-angle: ${activeAngle}deg;` : ""} ${transformStyle} ${lgState.backdropStyle}`);
 </script>
 
 <div
 	bind:this={ref}
 	data-slot="glass-view"
+	data-variant={variant}
 	role="presentation"
-	class={cn(buttonVariants({ variant, size }), showSpecular && "btn-specular", "cursor-default select-none", className)}
+	class={cn(buttonVariants({ variant, size }), showSpecular && "btn-specular", liquidGlass && "liquid-glass-active", "cursor-default select-none", className)}
 	style={elStyle}
 	onpointermove={handlePointerMove}
 	onpointerdown={handlePointerDown}
@@ -204,6 +241,20 @@
 	</span>
 </div>
 
+{#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
+	<LiquidGlassFilter
+		filterId={lgState.filterId}
+		displacementMapUri={lgState.displacementMapUri}
+		specularMapUri={lgState.specularMapUri}
+		width={lgState.width}
+		height={lgState.height}
+		{displacementScale}
+		{saturationBoost}
+		{backgroundBlur}
+		{chromaticAberration}
+	/>
+{/if}
+
 <style>
 	@property --specular-angle {
 		syntax: "<angle>";
@@ -216,8 +267,7 @@
 			transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
 			background-color 0.2s,
 			border-color 0.2s;
-		-webkit-mask-image: -webkit-radial-gradient(white, black);
-		mask-image: radial-gradient(white, black);
+		overflow: hidden;
 	}
 
 	.ripple-container {

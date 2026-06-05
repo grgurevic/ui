@@ -70,45 +70,47 @@
 
 		<div class="flex flex-col gap-3">
 			<span class="text-sm font-semibold text-muted-foreground ml-1">Preview</span>
-			<div class="py-10 w-full flex flex-col items-center justify-center border-y border-border/10 gap-4">
-				<Sheet.Root>
-					<Sheet.Trigger>
-						{#snippet child({ props })}
-							<Button variant="prominent" class="shadow-xl" {...props}>
-								Open {side} Sheet
-							</Button>
-						{/snippet}
-					</Sheet.Trigger>
-					<Sheet.Content {side} {showCloseButton}>
-						<Sheet.Header>
-							<Sheet.Title>Apple-style Sheet Drawer</Sheet.Title>
-							<Sheet.Description>This overlay container smoothly slides in from the {side} edge of your screen.</Sheet.Description>
-						</Sheet.Header>
+			<div class="h-64 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group">
+				<div class="relative z-10">
+					<Sheet.Root>
+						<Sheet.Trigger>
+							{#snippet child({ props })}
+								<Button variant="prominent" class="shadow-xl" {...props}>
+									Open {side} Sheet
+								</Button>
+							{/snippet}
+						</Sheet.Trigger>
+						<Sheet.Content {side} {showCloseButton} liquidGlass={true}>
+							<Sheet.Header>
+								<Sheet.Title>Apple-style Sheet Drawer</Sheet.Title>
+								<Sheet.Description>This overlay container smoothly slides in from the {side} edge of your screen.</Sheet.Description>
+							</Sheet.Header>
 
-						<div class="flex-1 py-8 flex flex-col items-center justify-center gap-4 text-center">
-							<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-								<Compass class="size-6 animate-pulse" />
+							<div class="flex-1 py-8 flex flex-col items-center justify-center gap-4 text-center">
+								<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+									<Compass class="size-6 animate-pulse" />
+								</div>
+								<div class="flex flex-col gap-1 max-w-xs">
+									<span class="font-semibold text-sm">Responsive Layout Shell</span>
+									<span class="text-xs text-muted-foreground">You can easily nest inputs, graphs, custom sliders, or settings lists inside sheet panels.</span>
+								</div>
 							</div>
-							<div class="flex flex-col gap-1 max-w-xs">
-								<span class="font-semibold text-sm">Responsive Layout Shell</span>
-								<span class="text-xs text-muted-foreground">You can easily nest inputs, graphs, custom sliders, or settings lists inside sheet panels.</span>
-							</div>
-						</div>
 
-						<Sheet.Footer class="flex flex-row gap-2 justify-end w-full">
-							<Sheet.Close>
-								{#snippet child({ props })}
-									<Button variant="bordered" class="flex-1 sm:flex-initial" {...props}>Cancel</Button>
-								{/snippet}
-							</Sheet.Close>
-							<Sheet.Close>
-								{#snippet child({ props })}
-									<Button variant="prominent" class="flex-1 sm:flex-initial" {...props}>Save Changes</Button>
-								{/snippet}
-							</Sheet.Close>
-						</Sheet.Footer>
-					</Sheet.Content>
-				</Sheet.Root>
+							<Sheet.Footer class="flex flex-row gap-2 justify-end w-full">
+								<Sheet.Close>
+									{#snippet child({ props })}
+										<Button variant="bordered" class="flex-1 sm:flex-initial" {...props}>Cancel</Button>
+									{/snippet}
+								</Sheet.Close>
+								<Sheet.Close>
+									{#snippet child({ props })}
+										<Button variant="prominent" class="flex-1 sm:flex-initial" {...props}>Save Changes</Button>
+									{/snippet}
+								</Sheet.Close>
+							</Sheet.Footer>
+						</Sheet.Content>
+					</Sheet.Root>
+				</div>
 			</div>
 		</div>
 
@@ -180,6 +182,14 @@
 					<ul class="text-xs font-mono flex flex-col gap-1 border-t border-border/10 pt-2 text-foreground/80 mt-1">
 						<li>• <span class="font-bold text-primary">side:</span> "left" | "right" | "top" | "bottom" - Cardinal direction slide path.</li>
 						<li>• <span class="font-bold text-primary">showCloseButton:</span> boolean (true) - Displays upper corner click dismisses.</li>
+<li>• <span class="font-bold text-primary">liquidGlass:</span> boolean (false) - Enables physical liquid glass refraction.</li>
+						<li>• <span class="font-bold text-primary">refractiveIndex:</span> number (1.5) - Index of refraction (1.0 to 2.4).</li>
+						<li>• <span class="font-bold text-primary">bezelWidth:</span> number (30) - Depth of bezel refraction zone (px).</li>
+						<li>• <span class="font-bold text-primary">displacementScale:</span> number (40) - Refraction offset scale intensity.</li>
+						<li>• <span class="font-bold text-primary">surfaceProfile:</span> "circle" | "squircle" | "concave" | "lip" ("squircle") - Bezel profile shape.</li>
+						<li>• <span class="font-bold text-primary">chromaticAberration:</span> boolean (false) - Enables RGB channel prism split.</li>
+						<li>• <span class="font-bold text-primary">saturationBoost:</span> number (1.3) - Color saturation multiplier.</li>
+						<li>• <span class="font-bold text-primary">backgroundBlur:</span> number (0.3) - Pre-blur softening factor.</li>
 					</ul>
 				</div>
 			</div>

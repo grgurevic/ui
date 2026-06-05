@@ -13,7 +13,8 @@
 	magnetic={false}
 	scale={false}
 	ripple={false}
-	class={cn("rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent flex-1 px-2", className)}
+	unstyled={true}
+	class={cn("rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 focus:outline-none outline-none aria-invalid:ring-0 dark:bg-transparent flex-1 px-2", className)}
 	bind:value
 	{...props}
 />
