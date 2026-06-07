@@ -68,7 +68,9 @@
 		"dependencies": [
 			"tailwind-variants"
 		],
-		"registryDependencies": [],
+		"registryDependencies": [
+			"button"
+		],
 		"relativeUrl": "glass-view.json"
 	},
 	{

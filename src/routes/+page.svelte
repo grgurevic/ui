@@ -26,8 +26,8 @@
 <NavigationStack.Root>
 	<NavigationStack.Header title="">
 		{#snippet leading()}
-			<img src="/logo/logo_light.svg" alt="logo" class="h-10 md:h-12 dark:block hidden" />
-			<img src="/logo/logo_dark.svg" alt="logo" class="h-10 md:h-12 dark:hidden block" />
+			<img src="/logo/logo_light.png" alt="logo" class="h-10 md:h-12 dark:block hidden" />
+			<img src="/logo/logo_dark.png" alt="logo" class="h-10 md:h-12 dark:hidden block" />
 		{/snippet}
 		{#snippet trailing()}
 			<div class="flex flex-row gap-2">

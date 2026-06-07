@@ -280,7 +280,7 @@
 			"title": "Glass View",
 			"description": "Core depth primitive container styled with specular boundaries and inertia drag rotation physics.",
 			"dependencies": ["tailwind-variants"],
-			"registryDependencies": [],
+			"registryDependencies": ["button"],
 			"files": [
 				{
 					"path": "src/lib/components/ui/glass-view/glass-view.svelte",
@@ -291,6 +291,21 @@
 					"path": "src/lib/components/ui/glass-view/index.ts",
 					"type": "registry:ui",
 					"target": "glass-view/index.ts"
+				},
+				{
+					"path": "src/lib/components/ui/glass-view/liquid-glass-filter.svelte",
+					"type": "registry:ui",
+					"target": "glass-view/liquid-glass-filter.svelte"
+				},
+				{
+					"path": "src/lib/components/ui/glass-view/liquid-glass.svelte.ts",
+					"type": "registry:ui",
+					"target": "glass-view/liquid-glass.svelte.ts"
+				},
+				{
+					"path": "src/lib/components/ui/glass-view/generate-displacement-map.ts",
+					"type": "registry:ui",
+					"target": "glass-view/generate-displacement-map.ts"
 				}
 			]
 		},

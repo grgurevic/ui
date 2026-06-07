@@ -95,8 +95,8 @@
 	<aside class="w-full md:w-80 max-h-screen shrink-0 transition-all duration-300 relative z-30" class:hidden={!isIndex} class:md:flex={true}>
 		<div class="flex flex-col items-stretch w-full bg-muted/0">
 			<a href="/" class="p-6 flex flex-row items-center justify-between">
-				<img src="/logo/logo_light.svg" alt="logo" class="w-full dark:block hidden" />
-				<img src="/logo/logo_dark.svg" alt="logo" class="w-full dark:hidden block" />
+				<img src="/logo/logo_light.png" alt="logo" class="w-full dark:block hidden" />
+				<img src="/logo/logo_dark.png" alt="logo" class="w-full dark:hidden block" />
 			</a>
 
 			<div class="px-6">
