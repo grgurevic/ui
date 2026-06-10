@@ -1,0 +1,149 @@
+# Grgurevic UI
+
+> Grgurevic UI is a premium, Apple-inspired Svelte 5 and SvelteKit component library built on top of shadcn-svelte. It recreates signature iOS and macOS design aesthetics using spring physics, magnetic pull, specular cursor-tracking border highlights, and real refractive SVG Liquid Glass containers.
+
+Grgurevic UI is designed to wow users at first glance with rich, tactile interactive components. It leverages Svelte 5 runes (`$state`, `$derived`) and snippet compositions, integrating with TailwindCSS v4 for modern, high-performance styling.
+
+## Design Primitives & Physics
+
+Grgurevic UI stands out by employing physics-based animations rather than static CSS transitions:
+- **Liquid Glass Refraction:** An advanced SVG filter simulating real light-bending glass with parameters for Index of Refraction (IOR), bezel width, chromatic aberration (RGB channel prism splitting), and saturation boosts.
+- **Specular Highlights:** Border light reflections that dynamically track the user's cursor positions.
+- **Magnetic Pull:** Interactive elements elastic-wise pull toward the cursor, matching Apple's tvOS/macOS hover behaviors.
+- **Spring Scaling:** Elements scale down on cursor click actions and spring back elastically using GSAP animation physics.
+
+---
+
+## Component Showcase & Live Docs
+
+The library contains 14 core components showcased in the dashboard:
+
+- [Button](https://ui.grgurevic.click/components/button): iOS-style button with spring physics scaling, magnetic pull, and 3D specular light glare reflections.
+- [Button Group](https://ui.grgurevic.click/components/button-group): Combines multiple Buttons together into a segmented capsule bar.
+- [Card](https://ui.grgurevic.click/components/card): Tactile card containers with customizable headers, contents, and footers.
+- [Dialog](https://ui.grgurevic.click/components/dialog): Tactile alert prompt mimicking native iOS system alerts.
+- [Dropdown Menu](https://ui.grgurevic.click/components/dropdown-menu): Glassmorphic popover featuring lists, checkboxes, and sub-menus.
+- [Glass View](https://ui.grgurevic.click/components/glass-view): Depth primitive block with SVG-refractive liquid glass filters and drag inertia physics.
+- [Input](https://ui.grgurevic.click/components/input): Text field with border focus glares, specular highlights, and clear wiggles.
+- [Input Group](https://ui.grgurevic.click/components/input-group): Segmented border frame combining inputs, text addons, and buttons.
+- [List](https://ui.grgurevic.click/components/list): iOS settings style table list rows with system icon slots and toggles.
+- [Navigation Stack](https://ui.grgurevic.click/components/navigation-stack): Coordinates Apple's scrolling large-to-small title shifts with GSAP blur offsets.
+- [Select](https://ui.grgurevic.click/components/select): Glassmorphic popup select wrapper built using Bits UI interactives.
+- [Sheet](https://ui.grgurevic.click/components/sheet): Slide-out drawer panels sliding from viewport edges.
+- [Slider](https://ui.grgurevic.click/components/slider): Elastic range slider input with spring physics.
+- [Switch](https://ui.grgurevic.click/components/switch): Smooth Apple-style toggling knob switch.
+
+---
+
+## CLI Installation Commands
+
+Grgurevic UI uses `shadcn-svelte` to add components directly to your local project. Run the following command to download the desired component's Svelte code and local dependencies:
+
+- **Button:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/button.json`
+- **Button Group:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/button-group.json`
+- **Card:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/card.json`
+- **Dialog:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/dialog.json`
+- **Dropdown Menu:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/dropdown-menu.json`
+- **Glass View:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/glass-view.json`
+- **Input:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/input.json`
+- **Input Group:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/input-group.json`
+- **List:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/list.json`
+- **Navigation Stack:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/navigation-stack.json`
+- **Select:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/select.json`
+- **Separator:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/separator.json`
+- **Sheet:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/sheet.json`
+- **Slider:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/slider.json`
+- **Switch:** `npx shadcn-svelte@latest add https://ui.grgurevic.click/r/switch.json`
+
+---
+
+## Core Component API & Examples
+
+### Glass View (`GlassView`)
+Used to wrap page areas or components to create true refractive glass overlays.
+
+#### Props
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `variant` | `"prominent" \| "bordered" \| "secondary" \| "translucent" \| "ghost" \| "destructive"` | `"translucent"` | Visual style preset |
+| `magnetic` | `boolean` | `true` | Pulls container towards cursor position |
+| `scale` | `boolean` | `true` | Spring scale compression feedback on cursor click |
+| `specular` | `boolean` | `true` | Cursor-tracking border light glares |
+| `liquidGlass` | `boolean` | `false` | Enables physical SVG-refraction (Chromium optimized) |
+| `refractiveIndex` | `number` | `1.5` | Index of refraction curvature. Range: 1.0 to 2.4 |
+| `bezelWidth` | `number` | `20` | Depth of bezel refraction boundary (px) |
+| `displacementScale` | `number` | `40` | Offset scaling displacement factor |
+| `surfaceProfile` | `"circle" \| "squircle" \| "concave" \| "lip"` | `"squircle"` | Bezel curve style shape profile |
+| `chromaticAberration` | `boolean` | `false` | Enables realistic RGB prism color channels splitting |
+| `saturationBoost` | `number` | `1.3` | Saturation boost multiplier behind refracted zone |
+| `backgroundBlur` | `number` | `0.3` | SVG pixelation blur filter multiplier |
+
+#### Composition Example
+```svelte
+<script lang="ts">
+	import { GlassView } from "$lib/components/ui/glass-view";
+</script>
+
+<GlassView
+	variant="translucent"
+	class="w-64 h-32 flex items-center justify-center"
+>
+	<span class="text-sm font-bold">Liquid Refraction</span>
+</GlassView>
+```
+
+### Button (`Button`)
+Interactive tactile action trigger.
+
+#### Props
+All `GlassView` props are available for the `Button`, plus:
+- `disabled: boolean` (default `false`) - Freezes hover and press handlers.
+- `size: "xs" | "sm" | "default" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"` (default `"default"`) - Button sizes.
+- `href: string` (default `undefined`) - Render as an HTML anchor styled as a Button.
+
+#### Composition Example
+```svelte
+<script lang="ts">
+	import { Button } from "$lib/components/ui/button";
+</script>
+
+<Button variant="prominent" size="default" magnetic={true} specular={true}>
+	Hover and Click Me
+</Button>
+```
+
+### Navigation Stack (`NavigationStack`)
+Dynamic header with scrolling blur offsets and title changes.
+
+#### Composition Example
+```svelte
+<script lang="ts">
+	import * as NavigationStack from "$lib/components/navigationStack";
+	import { Button } from "$lib/components/ui/button";
+	import { ChevronLeft } from "@lucide/svelte";
+</script>
+
+<NavigationStack.Root>
+	<NavigationStack.Header title="Profile Settings">
+		{#snippet leading()}
+			<Button variant="translucent" size="icon" onclick={() => history.back()}>
+				<ChevronLeft class="size-4" />
+			</Button>
+		{/snippet}
+		{#snippet trailing()}
+			<Button variant="translucent">Edit</Button>
+		{/snippet}
+	</NavigationStack.Header>
+
+	<div class="px-6 py-12">
+		<NavigationStack.LargeTitle>Profile Settings</NavigationStack.LargeTitle>
+		<!-- Scrollable page content goes here -->
+	</div>
+</NavigationStack.Root>
+```
+
+## Optional
+
+- [Grgurevic UI GitHub Repo](https://github.com/grgurevic/ui): Source code repository for package development.
+- [shadcn-svelte](https://shadcn-svelte.com): Main underlying svelte UI primitives platform.
+- [GSAP](https://gsap.com): Scroll and physics motion animation framework powering spring transformations.

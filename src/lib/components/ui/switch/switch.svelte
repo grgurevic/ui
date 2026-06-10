@@ -9,14 +9,14 @@
 		class: className,
 		checked = $bindable(false),
 		style,
-		liquidGlass = false,
+		liquidGlass = true,
 		refractiveIndex = 1.5,
 		bezelWidth = 10,
-		displacementScale = 15,
+		displacementScale = 6,
 		surfaceProfile = "squircle",
 		chromaticAberration = false,
 		saturationBoost = 1.3,
-		backgroundBlur = 0.3,
+		backgroundBlur = 0.8,
 		...restProps
 	}: WithoutChildrenOrChild<SwitchPrimitive.RootProps> & {
 		style?: string;
@@ -38,11 +38,13 @@
 		surfaceProfile,
 		chromaticAberration,
 		saturationBoost,
-		backgroundBlur
+		backgroundBlur,
 	}));
 
+	let thumbEl = $state<HTMLElement | null>(null);
+
 	$effect(() => {
-		lgState.ref = ref;
+		lgState.ref = thumbEl;
 	});
 
 	let isSwitching = $state<boolean>(false);
@@ -166,17 +168,24 @@
 		"data-checked:bg-primary data-unchecked:bg-black/25 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 dark:data-unchecked:bg-input/80 shrink-0 rounded-full border border-transparent shadow-xs aria-invalid:ring-3 h-[24px] w-[56px] peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50",
 		className,
 	)}
-	style={`${style ?? ""}; ${lgState.backdropStyle}`}
+	{style}
 	{...restProps}
 >
 	<SwitchPrimitive.Thumb
+		bind:ref={thumbEl}
 		data-slot="switch-thumb"
 		class={cn(
 			"rounded-full h-5 w-8 pointer-events-none block ring-0 transition-all backdrop-blur-[2px]",
 			currentDragTranslate === null && "data-checked:translate-x-[calc(100%-11px)] data-unchecked:translate-x-px rtl:data-[state=checked]:translate-x-[calc(-100%)]",
-			isSwitching || isHolding ? "scale-160 dark:bg-primary-foreground/15 border border-primary-foreground/15 duration-200" : "bg-white dark:bg-primary-foreground/90",
+			liquidGlass
+				? (isSwitching || isHolding
+					? "bg-white/25 dark:bg-white/15 border border-white/30 dark:border-white/25 shadow-none scale-160 duration-200"
+					: "bg-white/90 dark:bg-primary-foreground/90 border border-white/20 dark:border-white/10 shadow-sm")
+				: (isSwitching || isHolding
+					? "scale-160 dark:bg-primary-foreground/15 border border-primary-foreground/15 duration-200"
+					: "bg-white dark:bg-primary-foreground/90")
 		)}
-		style={currentDragTranslate !== null ? `transform: translate3d(${currentDragTranslate}px, 0, 0) scale(${thumbScaleX}, 1); transform-origin: ${transformOrigin}; transition: none;` : ""}
+		style={`${currentDragTranslate !== null ? `transform: translate3d(${currentDragTranslate}px, 0, 0) scale(${thumbScaleX}, 1); transform-origin: ${transformOrigin}; transition: none;` : ""} ${lgState.backdropStyle}`}
 	/>
 </SwitchPrimitive.Root>
 
@@ -187,9 +196,9 @@
 		specularMapUri={lgState.specularMapUri}
 		width={lgState.width}
 		height={lgState.height}
-		displacementScale={displacementScale}
-		saturationBoost={saturationBoost}
-		backgroundBlur={backgroundBlur}
-		chromaticAberration={chromaticAberration}
+		{displacementScale}
+		{saturationBoost}
+		{backgroundBlur}
+		{chromaticAberration}
 	/>
 {/if}

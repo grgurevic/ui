@@ -119,10 +119,10 @@ const cache = new Map<string, DisplacementMapResult>();
 export function generateDisplacementMap(options: DisplacementMapOptions): DisplacementMapResult {
 	const { width, height, borderRadius, bezelWidth = 20, refractiveIndex = 1.5, surfaceProfile = "squircle" } = options;
 
-	const roundedWidth = Math.round(width / 4) * 4;
-	const roundedHeight = Math.round(height / 4) * 4;
-	const roundedRadius = Math.round(borderRadius / 4) * 4;
-	const roundedBezel = Math.round(bezelWidth / 2) * 2;
+	const roundedWidth = Math.round(width);
+	const roundedHeight = Math.round(height);
+	const roundedRadius = Math.round(borderRadius);
+	const roundedBezel = Math.round(bezelWidth);
 
 	const cacheKey = `${roundedWidth}-${roundedHeight}-${roundedRadius}-${roundedBezel}-${refractiveIndex.toFixed(2)}-${surfaceProfile}`;
 	if (cache.has(cacheKey)) {

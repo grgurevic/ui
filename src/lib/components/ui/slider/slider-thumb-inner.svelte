@@ -8,8 +8,8 @@
 		onpointerdown,
 		liquidGlass = false,
 		refractiveIndex = 1.5,
-		bezelWidth = 6,
-		displacementScale = 10,
+		bezelWidth = 8,
+		displacementScale = 6,
 		surfaceProfile = "squircle",
 		chromaticAberration = false,
 		saturationBoost = 1.3,
@@ -39,8 +39,10 @@
 		backgroundBlur
 	}));
 
+	let innerElement = $state<HTMLElement | null>(null);
+
 	$effect(() => {
-		lgState.ref = thumbElement ?? null;
+		lgState.ref = innerElement;
 	});
 </script>
 
@@ -48,18 +50,23 @@
 	role="presentation"
 	bind:this={thumbElement}
 	{onpointerdown}
-	class={cn(
-		"border block w-full h-full select-none transition-[background-color,border-color,backdrop-filter] duration-200 rounded-full shadow-sm",
-		liquidGlass
-			? (isDragging
-				? "bg-white/25 dark:bg-white/15 border-white/30 dark:border-white/25 shadow-none"
-				: "bg-white/15 dark:bg-white/10 border-white/25 dark:border-white/15")
-			: (isDragging
-				? "bg-white/50 dark:bg-primary-foreground/15 border-primary-foreground/15 backdrop-blur-[2px] shadow-none"
-				: "bg-white dark:bg-primary-foreground/90 border-border")
-	)}
-	style={lgState.backdropStyle}
-></div>
+	class="w-full h-full block"
+>
+	<div
+		bind:this={innerElement}
+		class={cn(
+			"border block w-full h-full select-none transition-[background-color,border-color,backdrop-filter] duration-200 rounded-full shadow-sm",
+			liquidGlass
+				? (isDragging
+					? "bg-white/25 dark:bg-white/15 border border-white/30 dark:border-white/25 shadow-none"
+					: "bg-white/90 dark:bg-primary-foreground/90 border border-white/20 dark:border-white/10 shadow-sm")
+				: (isDragging
+					? "bg-white/50 dark:bg-primary-foreground/15 border-primary-foreground/15 backdrop-blur-[2px] shadow-none"
+					: "bg-white dark:bg-primary-foreground/90 border-border")
+		)}
+		style={lgState.backdropStyle}
+	></div>
+</div>
 
 {#if liquidGlass && lgState.isChromium && lgState.displacementMapUri}
 	<LiquidGlassFilter
