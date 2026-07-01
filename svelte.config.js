@@ -7,6 +7,7 @@ const config = {
 		runes: ({ filename }) => (filename.split(/[/\\]/).includes('node_modules') ? undefined : true)
 	},
 	kit: {
+		appDir: '_nuxt',
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
