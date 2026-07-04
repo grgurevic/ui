@@ -18,7 +18,7 @@
 		surfaceProfile = "squircle",
 		chromaticAberration = false,
 		saturationBoost = 1.3,
-		backgroundBlur = 0.3,
+		backgroundBlur = 24,
 		...restProps
 	}: DropdownMenuPrimitive.ContentProps & {
 		portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DropdownMenuPortal>>;

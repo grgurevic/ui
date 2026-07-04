@@ -1,168 +1,130 @@
 <script lang="ts">
-	import * as NavigationStack from "$lib/components/navigationStack";
+	import CodeAccordion from "$lib/components/code-accordion.svelte";
+	import Codeblock from "$lib/components/codeblock.svelte";
 	import * as InputGroup from "$lib/components/ui/input-group";
-	import { Switch } from "$lib/components/ui/switch";
-	import { Button } from "$lib/components/ui/button";
-	import CodeBlock from "$lib/components/codeblock.svelte";
-	import { ChevronLeft, Search, SearchIcon, Sparkles } from "@lucide/svelte";
+	import { SearchIcon, Sparkles } from "@lucide/svelte";
 
-	// Input Group state
-	let value = $state("");
-	let specular = $state(true);
-	let magnetic = $state(true);
-	let scale = $state(true);
+	let searchValue = $state("");
+</script>
 
-	// Generated Code
-	let generatedCode = $derived.by(() => {
-		const props = [];
-		if (!specular) props.push(`specular={false}`);
-		if (!magnetic) props.push(`magnetic={false}`);
-		if (!scale) props.push(`scale={false}`);
+<div class="flex flex-col gap-4 w-full p-12 border-b">
+	<h1 class="text-4xl font-semibold">Input Group</h1>
+	<p class="text-lg text-muted-foreground">A layout wrapper designed to encapsulate inputs, icons, and buttons under a unified glass capsule.</p>
+	<Codeblock code="bunx shadcn-svelte@latest add https://ui.grgurevic.click/r/input-group.json" lang="bash" classes="rounded-md border" />
+</div>
 
-		const propsStr = props.length > 0 ? " " + props.join(" ") : "";
-		return `<script lang="ts">
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Usage</h1>
+		<p class="text-md text-muted-foreground">An input group featuring a leading search icon and a trailing action button.</p>
+	</div>
+	<CodeAccordion
+		code={`<${"script"} lang="ts">
 	import * as InputGroup from "$lib/components/ui/input-group";
-	import { Search } from "lucide-svelte";
+	import { SearchIcon } from "lucide-svelte";
+	let searchValue = $state("");
 </${"script"}>
 
-<InputGroup.Root${propsStr}>
-	<InputGroup.Input placeholder="Search system docs..." />
+<InputGroup.Root liquidGlass={true}>
+	<InputGroup.Input placeholder="Search settings..." bind:value={searchValue} />
 	<InputGroup.Addon>
-		<Search class="size-4" />
+		<SearchIcon class="size-4 text-muted-foreground" />
 	</InputGroup.Addon>
 	<InputGroup.Addon align="inline-end">
 		<InputGroup.Button>Search</InputGroup.Button>
 	</InputGroup.Addon>
-</InputGroup.Root>`;
-	});
-</script>
-
-<NavigationStack.Root>
-	<NavigationStack.Header title="Input Group">
-		{#snippet leading()}
-			<Button variant="translucent" size="icon" href="/components">
-				<ChevronLeft class="size-4" />
-			</Button>
-		{/snippet}
-	</NavigationStack.Header>
-
-	<div class="flex flex-col gap-20 px-6 py-12 w-full max-w-4xl">
-		<div class="flex flex-col gap-2">
-			<NavigationStack.LargeTitle>Input Group</NavigationStack.LargeTitle>
-			<p class="text-md text-muted-foreground max-w-2xl">
-				A layout wrapper designed to encapsulate inputs, icons, and buttons under a unified glass capsule. The entire block acts as a single cohesive magnetic and specular physics boundary.
-			</p>
-		</div>
-
-		<div class="flex flex-col gap-3">
-			<span class="text-sm font-semibold text-muted-foreground ml-1">Preview</span>
-			<div class="h-64 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group">
-				<div class="relative z-10 w-full max-w-sm">
-					<InputGroup.Root {specular} {magnetic} {scale} liquidGlass={true}>
-						<InputGroup.Input placeholder="Search system settings..." bind:value />
-						<InputGroup.Addon>
-							<SearchIcon class="size-4 text-muted-foreground" />
-						</InputGroup.Addon>
-						<InputGroup.Addon align="inline-end">
-							<InputGroup.Button onclick={() => alert(`Searching for: ${value}`)}>Search</InputGroup.Button>
-						</InputGroup.Addon>
-					</InputGroup.Root>
-				</div>
+</InputGroup.Root>`}
+	>
+		<div class="w-full flex justify-center py-6">
+			<div class="w-full max-w-sm select-none">
+				<InputGroup.Root liquidGlass={true}>
+					<InputGroup.Input placeholder="Search settings..." bind:value={searchValue} />
+					<InputGroup.Addon>
+						<SearchIcon class="size-4 text-muted-foreground" />
+					</InputGroup.Addon>
+					<InputGroup.Addon align="inline-end">
+						<InputGroup.Button onclick={() => alert(`Searching for: ${searchValue}`)}>Search</InputGroup.Button>
+					</InputGroup.Addon>
+				</InputGroup.Root>
 			</div>
 		</div>
+	</CodeAccordion>
+</div>
 
-		<div class="flex flex-col gap-8 mt-4 w-full">
-			<div class="flex flex-col gap-6">
-				<span class="text-sm font-semibold text-muted-foreground ml-1">Configuration</span>
-
-				<div class="flex flex-col gap-4">
-					<div class="flex flex-row justify-between items-center">
-						<div class="flex flex-col gap-0.5">
-							<span class="text-sm font-medium">Specular Highlighting</span>
-							<span class="text-xs text-muted-foreground">Aligns shiny reflection bounds along capsule border</span>
-						</div>
-						<Switch bind:checked={specular} />
-					</div>
-
-					<div class="flex flex-row justify-between items-center border-t border-border/10 pt-4">
-						<div class="flex flex-col gap-0.5">
-							<span class="text-sm font-medium">Magnetic Elastic Force</span>
-							<span class="text-xs text-muted-foreground">Capsule shifts towards pointer upon hovering</span>
-						</div>
-						<Switch bind:checked={magnetic} />
-					</div>
-
-					<div class="flex flex-row justify-between items-center border-t border-border/10 pt-4">
-						<div class="flex flex-col gap-0.5">
-							<span class="text-sm font-medium">Haptic Hold Scaling</span>
-							<span class="text-xs text-muted-foreground">Squeezes entire group capsule upon clicks</span>
-						</div>
-						<Switch bind:checked={scale} />
-					</div>
-				</div>
-			</div>
-
-			<div class="flex flex-col gap-3">
-				<span class="text-sm font-semibold text-muted-foreground ml-1">Installation</span>
-				<CodeBlock code="npx shadcn-svelte@latest add https://ui.grgurevic.click/r/input-group.json" lang="bash" />
-			</div>
-
-			<div class="flex flex-col gap-3">
-				<span class="text-sm font-semibold text-muted-foreground ml-1">Svelte Composition Code</span>
-				<div class="flex flex-col gap-3">
-					<CodeBlock code={generatedCode} lang="svelte" />
-				</div>
-			</div>
-		</div>
-
-		<div class="flex flex-col gap-4 mt-8">
-			<h3 class="text-base font-bold text-foreground ml-1">API & Props Reference</h3>
-
-			<div class="flex flex-col gap-6">
-				<div class="flex flex-col gap-3 py-6 border-b border-border/10 last:border-b-0">
-					<div class="flex items-center gap-2">
-						<span class="font-mono font-bold text-primary text-sm">InputGroup.Root</span>
-					</div>
-					<p class="text-sm text-muted-foreground">Capsule container orchestrating mouse movements, specular borders, and scale wiggles.</p>
-					<ul class="text-xs font-mono flex flex-col gap-1 border-t border-border/10 pt-2 text-foreground/80 mt-1">
-						<li>• <span class="font-bold text-primary">specular:</span> boolean (true) - Enables 3D border reflection glare.</li>
-						<li>• <span class="font-bold text-primary">magnetic:</span> boolean (true) - Attracts capsule center to pointer.</li>
-						<li>• <span class="font-bold text-primary">scale:</span> boolean (true) - Compresses capsule bounds on press.</li>
-<li>• <span class="font-bold text-primary">liquidGlass:</span> boolean (false) - Enables physical liquid glass refraction.</li>
-						<li>• <span class="font-bold text-primary">refractiveIndex:</span> number (1.5) - Index of refraction (1.0 to 2.4).</li>
-						<li>• <span class="font-bold text-primary">bezelWidth:</span> number (20) - Depth of bezel refraction zone (px).</li>
-						<li>• <span class="font-bold text-primary">displacementScale:</span> number (30) - Refraction offset scale intensity.</li>
-						<li>• <span class="font-bold text-primary">surfaceProfile:</span> "circle" | "squircle" | "concave" | "lip" ("squircle") - Bezel profile shape.</li>
-						<li>• <span class="font-bold text-primary">chromaticAberration:</span> boolean (false) - Enables RGB channel prism split.</li>
-						<li>• <span class="font-bold text-primary">saturationBoost:</span> number (1.3) - Color saturation multiplier.</li>
-						<li>• <span class="font-bold text-primary">backgroundBlur:</span> number (0.3) - Pre-blur softening factor.</li>
-					</ul>
-				</div>
-
-				<div class="flex flex-col gap-3 py-6 border-b border-border/10 last:border-b-0">
-					<div class="flex items-center gap-2">
-						<span class="font-mono font-bold text-primary text-sm">InputGroup.Input</span>
-					</div>
-					<p class="text-sm text-muted-foreground">The inner text input element. Bypasses normal borders to let the capsule contain it cleanly.</p>
-				</div>
-
-				<div class="flex flex-col gap-3 py-6 border-b border-border/10 last:border-b-0">
-					<div class="flex items-center gap-2">
-						<span class="font-mono font-bold text-primary text-sm">InputGroup.Addon</span>
-					</div>
-					<p class="text-sm text-muted-foreground">Padded section enclosing leading icons or tailing action buttons.</p>
-					<ul class="text-xs font-mono flex flex-col gap-1 border-t border-border/10 pt-2 text-foreground/80 mt-1">
-						<li>• <span class="font-bold text-primary">align:</span> "inline-start" | "inline-end" | "block-start" | "block-end" - Sets padding boundary alignments.</li>
-					</ul>
-				</div>
-
-				<div class="flex flex-col gap-3 py-6 border-b border-border/10 last:border-b-0">
-					<div class="flex items-center gap-2">
-						<span class="font-mono font-bold text-primary text-sm">InputGroup.Button</span>
-					</div>
-					<p class="text-sm text-muted-foreground">Compact tailing button styled to blend inside the capsule outline.</p>
-				</div>
-			</div>
-		</div>
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Best practices</h1>
+		<p class="text-md text-muted-foreground">The best practices when using input groups.</p>
 	</div>
-</NavigationStack.Root>
+	<ul class="list-disc pl-5 flex flex-col gap-4 text-muted-foreground">
+		<li>
+			Place primary search action <a class="inline-flex items-center gap-1 text-primary hover:underline align-middle" href="/components/button"><img src="/logo/pictorial.png" alt="logo" class="size-4" />Button</a> components inside the trailing addon slot for consistent alignment.
+		</li>
+		<li>Limit the number of icons or action buttons inside a single input group to avoid clutter.</li>
+		<li>Ensure the placeholder text explains the scope of the search or action clearly.</li>
+		<li>Keep the container aligned nicely on responsive screen width changes.</li>
+	</ul>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Components & Props</h1>
+		<p class="text-md text-muted-foreground">Input Group sub-components and customization parameters.</p>
+	</div>
+	<div class="w-full overflow-x-auto border rounded-md bg-card">
+		<table class="w-full text-sm text-left">
+			<thead>
+				<tr class="border-b">
+					<th class="p-4 font-semibold text-foreground">Component / Prop</th>
+					<th class="p-4 font-semibold text-foreground">Type / Role</th>
+					<th class="p-4 font-semibold text-foreground">Default</th>
+					<th class="p-4 font-semibold text-foreground">Description</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-border">
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">InputGroup.Root</td>
+					<td class="p-4 text-muted-foreground font-sans">Capsule container</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">-</td>
+					<td class="p-4 text-muted-foreground">Orchestrates border reflections, scale responses, and mouse interactions.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">InputGroup.Input</td>
+					<td class="p-4 text-muted-foreground font-sans">Text input</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">-</td>
+					<td class="p-4 text-muted-foreground">The inner input field which blends borderless inside the capsule outline.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">InputGroup.Addon</td>
+					<td class="p-4 text-muted-foreground font-sans">Addon section</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">-</td>
+					<td class="p-4 text-muted-foreground">Section for leading/trailing elements. Takes `align="inline-start" | "inline-end"`.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">InputGroup.Button</td>
+					<td class="p-4 text-muted-foreground font-sans">Internal action button</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">-</td>
+					<td class="p-4 text-muted-foreground">Tailing action button specifically sized to fit inside the capsule boundary.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">specular</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">true</td>
+					<td class="p-4 text-muted-foreground">Enables 3D border reflection glare overlays on hover.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">magnetic</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">true</td>
+					<td class="p-4 text-muted-foreground">Attracts the capsule center towards the cursor upon pointer hover.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">scale</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">true</td>
+					<td class="p-4 text-muted-foreground">Compresses capsule boundaries elastically when pressed.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

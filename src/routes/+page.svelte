@@ -10,6 +10,8 @@
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 	import { Footer } from "$lib/components/ui/card";
 	import { GlassView } from "$lib/components/ui/glass-view";
+	import { Input } from "$lib/components/ui/input";
+	import CodeAccordion from "$lib/components/code-accordion.svelte";
 
 	let ecoMode = $state(true);
 	let storageUsage = $state(60);
@@ -19,11 +21,45 @@
 
 <svelte:head>
 	<title>Liquid Glass Svelte Components - Grgurevic UI</title>
-	<meta name="description" content="Build premium web interfaces with Grgurevic UI, a Svelte 5 component library featuring physics-based elastic cards, specular highlights, and real refractive Liquid Glass." />
+	<meta
+		name="description"
+		content="Build premium web interfaces with Grgurevic UI, a Svelte 5 component library featuring physics-based elastic cards, specular highlights, and real refractive Liquid Glass."
+	/>
 	<meta name="keywords" content="liquid glass svelte, svelte liquid glass, svelte 5 liquid glass, refractive glass svelte, svelte glassmorphism" />
 </svelte:head>
 
-<NavigationStack.Root>
+<div class="flex flex-col gap-4 w-full p-12 border-b">
+	<h1 class="text-4xl font-semibold">Grgurevic Ui</h1>
+	<p class="text-lg text-muted-foreground">A highly Apple-inspired Svelte 5 component library with stretchyness, physics, specular highlights refractive liquid glass.</p>
+</div>
+
+<a class="flex flex-col gap-12 w-full p-8 hover:bg-accent" href="/components/button">
+	<div class="flex flex-col gap-4">
+		<div class="flex flex-row gap-4">
+			<Button variant="prominent">Hello</Button>
+			<Button variant="secondary">Hello</Button>
+			<Button variant="bordered">Hello</Button>
+			<Button variant="translucent">Hello</Button>
+			<Button variant="ghost">Hello</Button>
+			<Button variant="destructive">Hello</Button>
+		</div>
+		<div class="flex flex-row gap-4 w-fit">
+			<Input placeholder="Username" />
+			<Input placeholder="Email" />
+		</div>
+		<div class="flex flex-row gap-4 w-fit">
+			<Switch />
+			<Switch checked />
+		</div>
+	</div>
+
+	<div class="flex flex-col">
+		<p class="font-semibold">Components</p>
+		<p class="text-sm text-muted-foreground">Building blocks for Svelte applications</p>
+	</div>
+</a>
+
+<!--<NavigationStack.Root>
 	<NavigationStack.Header title="">
 		{#snippet leading()}
 			<img src="/logo/logo_light.png" alt="logo" class="h-10 md:h-12 dark:block hidden" />
@@ -199,3 +235,4 @@
 		<Footer />
 	</div>
 </NavigationStack.Root>
+-->

@@ -1,176 +1,118 @@
 <script lang="ts">
-	import * as NavigationStack from "$lib/components/navigationStack";
+	import CodeAccordion from "$lib/components/code-accordion.svelte";
+	import Codeblock from "$lib/components/codeblock.svelte";
 	import { Switch } from "$lib/components/ui/switch";
-	import * as Select from "$lib/components/ui/select";
-	import CodeBlock from "$lib/components/codeblock.svelte";
-	import { Button } from "$lib/components/ui/button";
-	import { ChevronLeft, Info } from "@lucide/svelte";
 
-	// Switch state
 	let checked = $state(false);
-	let disabled = $state(false);
-
-	// Generated Code
-	let generatedCode = $derived.by(() => {
-		const props = [`bind:checked={checked}`];
-		if (disabled) props.push(`disabled`);
-
-		const propsStr = props.join(" ");
-		return `<script lang="ts">
-	let checked = $state(false);
-	import { Switch } from "$lib/components/ui/switch";
-</${"script"}>
-
-<Switch ${propsStr} />`;
-	});
 </script>
 
-<NavigationStack.Root>
-	<NavigationStack.Header title="Switch">
-		{#snippet leading()}
-			<Button variant="translucent" size="icon" href="/components">
-				<ChevronLeft class="size-4" />
-			</Button>
-		{/snippet}
-	</NavigationStack.Header>
+<div class="flex flex-col gap-4 w-full p-12 border-b">
+	<h1 class="text-4xl font-semibold">Switch</h1>
+	<p class="text-lg text-muted-foreground">A highly realistic toggle controller that mimics the organic mechanical inertia of native iOS controls.</p>
+	<Codeblock code="bunx shadcn-svelte@latest add https://ui.grgurevic.click/r/switch.json" lang="bash" classes="rounded-md border" />
+</div>
 
-	<div class="flex flex-col gap-20 px-6 py-12 w-full max-w-4xl">
-		<div class="flex flex-col gap-2">
-<NavigationStack.LargeTitle>Switch</NavigationStack.LargeTitle>
-			<p class="text-md text-muted-foreground max-w-2xl">
-				A highly realistic toggle controller that mimics the organic mechanical inertia of native iOS controls. Supports direct dragging, finger pressure scaling, and spring physics.
-			</p>
-		</div>
-
-		<div class="flex flex-col gap-3">
-			<span class="text-sm font-semibold text-muted-foreground ml-1 font-medium flex items-center gap-1.5">
-				<Info class="size-4 text-primary" /> Drag the thumb left/right to feel the spring squeeze physics!
-			</span>
-			<div class="h-64 w-full flex items-center justify-center bg-[url(/bg_rotating.gif)] bg-cover rounded-3xl relative shadow-md overflow-hidden group">
-				<div class="relative z-10 flex flex-col items-center gap-4">
-					<Switch bind:checked {disabled} liquidGlass={true} />
-					<span class="text-xs text-muted-foreground font-semibold bg-background/50 backdrop-blur border border-white/10 px-3 py-1 rounded-full shadow-sm">
-						State: {checked ? "Checked" : "Unchecked"}
-					</span>
-				</div>
-			</div>
-		</div>
-
-		<div class="flex flex-col gap-8 mt-4 w-full">
-			<div class="flex flex-col gap-6">
-				<span class="text-sm font-semibold text-muted-foreground ml-1">Configuration</span>
-
-
-
-				<div class="flex flex-col gap-4 border-t border-border/20 pt-4">
-					<div class="flex flex-row justify-between items-center">
-						<div class="flex flex-col gap-0.5">
-							<span class="text-sm font-medium">Toggle Programmatically</span>
-							<span class="text-xs text-muted-foreground">Trigger state via external binding</span>
-						</div>
-						<Button size="sm" variant="bordered" onclick={() => checked = !checked}>Toggle</Button>
-					</div>
-
-					<div class="flex flex-row justify-between items-center border-t border-border/10 pt-4">
-						<div class="flex flex-col gap-0.5">
-							<span class="text-sm font-medium">Disabled State</span>
-							<span class="text-xs text-muted-foreground">Disables interaction while dimming state</span>
-						</div>
-						<Switch bind:checked={disabled} />
-					</div>
-				</div>
-			</div>
-
-			<div class="flex flex-col gap-3">
-				<span class="text-sm font-semibold text-muted-foreground ml-1">Installation</span>
-				<CodeBlock code="npx shadcn-svelte@latest add https://ui.grgurevic.click/r/switch.json" lang="bash" />
-			</div>
-
-			<div class="flex flex-col gap-3">
-				<span class="text-sm font-semibold text-muted-foreground ml-1">Svelte Composition Code</span>
-				<div class="flex flex-col gap-3">
-					<CodeBlock code={generatedCode} lang="svelte" />
-				</div>
-			</div>
-		</div>
-
-		<div class="flex flex-col gap-4 mt-8">
-			<h3 class="text-base font-bold text-foreground ml-1">API & Props Reference</h3>
-			<div class="w-full overflow-x-auto py-4">
-				<table class="w-full text-sm border-collapse text-left">
-					<thead>
-						<tr class="bg-muted/30 border-b border-border/20">
-							<th class="p-4 font-semibold text-foreground/80">Prop</th>
-							<th class="p-4 font-semibold text-foreground/80">Type</th>
-							<th class="p-4 font-semibold text-foreground/80">Default</th>
-							<th class="p-4 font-semibold text-foreground/80">Description</th>
-						</tr>
-					</thead>
-					<tbody class="divide-y divide-border/10">
-						<tr>
-							<td class="p-4 font-mono font-bold text-primary">checked</td>
-							<td class="p-4 font-mono text-xs">boolean</td>
-							<td class="p-4 font-mono text-xs">false</td>
-							<td class="p-4 text-muted-foreground">Two-way bindable state property indicating toggled state.</td>
-						</tr>
-
-						<tr>
-							<td class="p-4 font-mono font-bold text-primary">disabled</td>
-							<td class="p-4 font-mono text-xs">boolean</td>
-							<td class="p-4 font-mono text-xs">false</td>
-							<td class="p-4 text-muted-foreground">Disables clicks and pointer listeners while opacity-scaling down.</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">liquidGlass</td>
-							<td class="p-4 font-mono text-xs">boolean</td>
-							<td class="p-4 font-mono text-xs">false</td>
-							<td class="p-4 text-muted-foreground">Enables physical liquid glass refraction (Chromium only).</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">refractiveIndex</td>
-							<td class="p-4 font-mono text-xs">number</td>
-							<td class="p-4 font-mono text-xs">1.5</td>
-							<td class="p-4 text-muted-foreground">IOR of glass curvature. Range 1.0 (air) to 2.4.</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">bezelWidth</td>
-							<td class="p-4 font-mono text-xs">number</td>
-							<td class="p-4 font-mono text-xs">10</td>
-							<td class="p-4 text-muted-foreground">Depth of bezel refraction zone (px).</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">displacementScale</td>
-							<td class="p-4 font-mono text-xs">number</td>
-							<td class="p-4 font-mono text-xs">15</td>
-							<td class="p-4 text-muted-foreground">Intensity of physical refraction offset.</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">surfaceProfile</td>
-							<td class="p-4 font-mono text-xs">"circle" | "squircle" | "concave" | "lip"</td>
-							<td class="p-4 font-mono text-xs">"squircle"</td>
-							<td class="p-4 text-muted-foreground">3D bezel curvature outline profile.</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">chromaticAberration</td>
-							<td class="p-4 font-mono text-xs">boolean</td>
-							<td class="p-4 font-mono text-xs">false</td>
-							<td class="p-4 text-muted-foreground">Enables realistic RGB channel prism splitting.</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">saturationBoost</td>
-							<td class="p-4 font-mono text-xs">number</td>
-							<td class="p-4 font-mono text-xs">1.3</td>
-							<td class="p-4 text-muted-foreground">Color saturation boost multiplier inside refracted zone.</td>
-						</tr>
-						<tr class="bg-primary/5">
-							<td class="p-4 font-mono font-bold text-primary">backgroundBlur</td>
-							<td class="p-4 font-mono text-xs">number</td>
-							<td class="p-4 font-mono text-xs">0.3</td>
-							<td class="p-4 text-muted-foreground">Slight pre-blur factor to hide SVG pixelation artifacts.</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Usage</h1>
+		<p class="text-md text-muted-foreground">A basic on/off toggle switch. Drag the thumb left or right to feel the spring physics.</p>
 	</div>
-</NavigationStack.Root>
+	<CodeAccordion
+		code={`<${"script"} lang="ts">
+	import { Switch } from "$lib/components/ui/switch";
+	let checked = $state(false);
+</${"script"}>
+
+<Switch bind:checked={checked} />`}
+	>
+		<Switch bind:checked />
+	</CodeAccordion>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Disabled</h1>
+		<p class="text-md text-muted-foreground">Switches can be disabled to prevent user interaction.</p>
+	</div>
+	<CodeAccordion
+		code={`<Switch disabled />
+<Switch checked={true} disabled />`}
+	>
+		<div class="flex flex-row gap-4">
+			<Switch disabled />
+			<Switch checked={true} disabled />
+		</div>
+	</CodeAccordion>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Best practices</h1>
+		<p class="text-md text-muted-foreground">The best practices when using toggle switches.</p>
+	</div>
+	<ul class="list-disc pl-5 flex flex-col gap-4 text-muted-foreground">
+		<li>Use toggle switches only for binary states that take effect immediately.</li>
+		<li>Pair each switch with a clear text label indicating what it controls. The <a class="inline-flex items-center gap-1 text-primary hover:underline align-middle" href="/components/list"><img src="/logo/pictorial.png" alt="logo" class="size-4" />List</a> component provides a purpose-built slot for this pattern.</li>
+		<li>Position the switch toggle to the right side of list rows or text labels.</li>
+		<li>
+			Disable input actions programmatically when required parent fields are empty. For irreversible actions, show a <a class="inline-flex items-center gap-1 text-primary hover:underline align-middle" href="/components/dialog"><img src="/logo/pictorial.png" alt="logo" class="size-4" />Dialog</a> confirmation instead.
+		</li>
+	</ul>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Props</h1>
+		<p class="text-md text-muted-foreground">The props available for the Switch component.</p>
+	</div>
+	<div class="w-full overflow-x-auto border rounded-md bg-card">
+		<table class="w-full text-sm text-left">
+			<thead>
+				<tr class="border-b">
+					<th class="p-4 font-semibold text-foreground">Prop</th>
+					<th class="p-4 font-semibold text-foreground">Type</th>
+					<th class="p-4 font-semibold text-foreground">Default</th>
+					<th class="p-4 font-semibold text-foreground">Description</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-border">
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">checked</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">false</td>
+					<td class="p-4 text-muted-foreground">Two-way bindable state property indicating toggled state.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">disabled</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">false</td>
+					<td class="p-4 text-muted-foreground">Disables clicks and pointer listeners while opacity-scaling down.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">liquidGlass</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">false</td>
+					<td class="p-4 text-muted-foreground">Enables physical liquid glass refraction (Chromium only).</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">refractiveIndex</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">1.5</td>
+					<td class="p-4 text-muted-foreground">IOR of glass curvature. Range 1.0 (air) to 2.4.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">bezelWidth</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">10</td>
+					<td class="p-4 text-muted-foreground">Depth of bezel refraction zone (px).</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">displacementScale</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">15</td>
+					<td class="p-4 text-muted-foreground">Intensity of physical refraction offset.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

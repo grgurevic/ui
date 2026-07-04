@@ -1,4 +1,4 @@
-<script lang="ts">
+<!--<script lang="ts">
 	import * as NavigationStack from "$lib/components/navigationStack";
 	import * as ButtonGroup from "$lib/components/ui/button-group";
 	import { Button } from "$lib/components/ui/button";
@@ -58,8 +58,331 @@
 </ButtonGroup.Root>`;
 	});
 </script>
+-->
+<script lang="ts">
+	import CodeAccordion from "$lib/components/code-accordion.svelte";
+	import Codeblock from "$lib/components/codeblock.svelte";
+	import { Button } from "$lib/components/ui/button";
+	import { ArrowDown, Computer, Ellipsis, Laptop, Pencil, Phone, Plus, Save, Search, Share, Sparkles, Star, Tablet, Trash, X } from "@lucide/svelte";
+	import * as ButtonGroup from "$lib/components/ui/button-group";
+</script>
 
-<NavigationStack.Root>
+<div class="flex flex-col gap-4 w-full p-12 border-b">
+	<h1 class="text-4xl font-semibold">Button Group</h1>
+	<p class="text-lg text-muted-foreground">A container that groups related buttons together with consistent styling.</p>
+	<Codeblock code="bunx shadcn-svelte@latest add https://ui.grgurevic.click/r/button-group.json" lang="bash" classes="rounded-md border" />
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Sizes</h1>
+		<p class="text-md text-muted-foreground">The default size is medium.</p>
+	</div>
+	<CodeAccordion
+		code={`<${"script"} lang="ts">
+	import * as ButtonGroup from "$lib/components/ui/button-group";
+	import { Button } from "$lib/components/ui/button";
+</${"script"}>
+
+<ButtonGroup.Root class="w-fit" size="xs">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit" size="sm">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit" size="default">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit" size="lg">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>`}
+	>
+		<ButtonGroup.Root class="w-fit" size="xs">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" size="sm">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" size="default">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" size="lg">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+	</CodeAccordion>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Variants</h1>
+		<p class="text-md text-muted-foreground">The default size is translucent.</p>
+	</div>
+	<CodeAccordion
+		code={`<${"script"} lang="ts">
+	import * as ButtonGroup from "$lib/components/ui/button-group";
+	import { Button } from "$lib/components/ui/button";
+</${"script"}>
+
+<ButtonGroup.Root class="w-fit" variant="prominent">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit" variant="bordered">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit" variant="secondary">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit" variant="ghost">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit" variant="destructive">
+	<Button>Water</Button>
+	<Button>Tea</Button>
+	<Button>Coffee</Button>
+	<Button>Juice</Button>
+</ButtonGroup.Root>`}
+	>
+		<ButtonGroup.Root class="w-fit" variant="prominent">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" variant="bordered">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" variant="secondary">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" variant="translucent">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" variant="ghost">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit" variant="destructive">
+			<Button>Water</Button>
+			<Button>Tea</Button>
+			<Button>Coffee</Button>
+			<Button>Juice</Button>
+		</ButtonGroup.Root>
+	</CodeAccordion>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Icons</h1>
+		<p class="text-md text-muted-foreground">Grouped buttons with icons.</p>
+	</div>
+	<CodeAccordion
+		code={`<${"script"} lang="ts">
+	import * as ButtonGroup from "$lib/components/ui/button-group";
+	import { Button } from "$lib/components/ui/button";
+</${"script"}>
+
+<ButtonGroup.Root class="w-fit">
+	<Button><Phone /></Button>
+	<Button><Laptop /></Button>
+	<Button><Computer /></Button>
+	<Button><Tablet /></Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit">
+	<Button><Pencil /></Button>
+	<Button><Star /></Button>
+	<Button><Trash /></Button>
+</ButtonGroup.Root>
+<ButtonGroup.Root class="w-fit">
+	<Button><Share /></Button>
+	<Button><Ellipsis /></Button>
+</ButtonGroup.Root>`}
+	>
+		<ButtonGroup.Root class="w-fit">
+			<Button><Phone /></Button>
+			<Button><Laptop /></Button>
+			<Button><Computer /></Button>
+			<Button><Tablet /></Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit">
+			<Button><Pencil /></Button>
+			<Button><Star /></Button>
+			<Button><Trash /></Button>
+		</ButtonGroup.Root>
+		<ButtonGroup.Root class="w-fit">
+			<Button><Share /></Button>
+			<Button><Ellipsis /></Button>
+		</ButtonGroup.Root>
+	</CodeAccordion>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12 border-b">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Best practices</h1>
+		<p class="text-md text-muted-foreground">The best practices when using button groups.</p>
+	</div>
+	<ul class="list-disc pl-5 flex flex-col gap-4 text-muted-foreground">
+		<li>Always use the <a class="inline-flex items-center gap-1 text-primary hover:underline align-middle" href="/components/button"><img src="/logo/pictorial.png" alt="logo" class="size-4" />Button</a> component for children inside the group.</li>
+		<li>Ensure all nested buttons within the group share the same size.</li>
+		<li>Only group buttons that are logically related, such as view switchers or pagination.</li>
+		<li>Keep the button count between 2 to 5 items to prevent crowding on mobile.</li>
+		<li>Use the same visual variant for all buttons inside a group.</li>
+		<li>Clearly highlight the active button when using the group as a segmented control.</li>
+	</ul>
+</div>
+
+<div class="flex flex-col gap-6 w-full p-12">
+	<div class="flex flex-col gap-2">
+		<h1 class="text-2xl font-semibold">Props</h1>
+		<p class="text-md text-muted-foreground">The props available for the Button Group component.</p>
+	</div>
+	<div class="w-full overflow-x-auto border rounded-md bg-card">
+		<table class="w-full text-sm text-left">
+			<thead>
+				<tr class="border-b">
+					<th class="p-4 font-semibold text-foreground">Prop</th>
+					<th class="p-4 font-semibold text-foreground">Type</th>
+					<th class="p-4 font-semibold text-foreground">Default</th>
+					<th class="p-4 font-semibold text-foreground">Description</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-border">
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">variant</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">"prominent" | "bordered" | "secondary" | "translucent" | "ghost" | "destructive"</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">"translucent"</td>
+					<td class="p-4 text-muted-foreground">The visual style variant of the group container.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">size</td>
+					<td class="p-4 font-mono text-xs">"xs" | "sm" | "default" | "lg"</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">"default"</td>
+					<td class="p-4 text-muted-foreground">Tuning heights and internal child spacing gaps.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">magnetic</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">true</td>
+					<td class="p-4 text-muted-foreground">Enables the physics-based elastic magnetic pulling effect towards the cursor.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">scale</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">true</td>
+					<td class="p-4 text-muted-foreground">Enables tactile spring scaling response when pressed.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">specular</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">true</td>
+					<td class="p-4 text-muted-foreground">Enables dynamic 3D specular highlight reflections that track cursor movement.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">specularAngle</td>
+					<td class="p-4 font-mono text-xs">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">undefined</td>
+					<td class="p-4 text-muted-foreground">Optional fixed angle for the specular light reflection.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">liquidGlass</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">false</td>
+					<td class="p-4 text-muted-foreground">Enables physical liquid glass refraction distortion (Chromium only).</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">refractiveIndex</td>
+					<td class="p-4 font-mono text-xs">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">1.5</td>
+					<td class="p-4 text-muted-foreground">Index of refraction (IOR) for the glass surface curvature. Range 1.0 (air) to 2.4.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">bezelWidth</td>
+					<td class="p-4 font-mono text-xs">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">20</td>
+					<td class="p-4 text-muted-foreground">Depth of the glass bezel refraction boundary zone (px).</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">displacementScale</td>
+					<td class="p-4 font-mono text-xs">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">40</td>
+					<td class="p-4 text-muted-foreground">Strength of the physical refraction displacement offset.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">surfaceProfile</td>
+					<td class="p-4 font-mono text-xs">"circle" | "squircle" | "concave" | "lip"</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">"squircle"</td>
+					<td class="p-4 text-muted-foreground">3D bezel outline profile contour style.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">chromaticAberration</td>
+					<td class="p-4 font-mono text-xs">boolean</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">false</td>
+					<td class="p-4 text-muted-foreground">Enables realistic RGB channel prism splitting refraction at bezel edges.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">saturationBoost</td>
+					<td class="p-4 font-mono text-xs">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">1.3</td>
+					<td class="p-4 text-muted-foreground">Color saturation boost multiplier inside refracted zone.</td>
+				</tr>
+				<tr>
+					<td class="p-4 font-mono font-bold text-foreground">backgroundBlur</td>
+					<td class="p-4 font-mono text-xs">number</td>
+					<td class="p-4 font-mono text-xs text-muted-foreground">0.3</td>
+					<td class="p-4 text-muted-foreground">Pre-blur factor applied to background to hide SVG rendering artifacts.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!--<NavigationStack.Root>
 	<NavigationStack.Header title="Button Group">
 		{#snippet leading()}
 			<Button variant="translucent" size="icon" href="/components">
@@ -263,3 +586,4 @@
 		</div>
 	</div>
 </NavigationStack.Root>
+-->
