@@ -27,7 +27,7 @@
 		surfaceProfile = "squircle",
 		chromaticAberration = false,
 		saturationBoost = 1.3,
-		backgroundBlur = 0.3,
+		backgroundBlur = 20,
 		...restProps
 	}: WithoutChildrenOrChild<SheetPrimitive.ContentProps> & {
 		portalProps?: WithoutChildrenOrChild<ComponentProps<typeof SheetPortal>>;

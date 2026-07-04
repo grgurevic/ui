@@ -22,7 +22,7 @@
 		surfaceProfile = "squircle",
 		chromaticAberration = false,
 		saturationBoost = 1.3,
-		backgroundBlur = 0.3,
+		backgroundBlur = 24,
 		...restProps
 	}: WithoutChild<SelectPrimitive.ContentProps> & {
 		portalProps?: WithoutChildrenOrChild<ComponentProps<typeof SelectPortal>>;
