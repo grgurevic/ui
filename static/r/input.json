@@ -9,7 +9,7 @@
 		"@lucide/svelte"
 	],
 	"devDependencies": [
-		"@lucide/svelte@^1.16.0"
+		"@lucide/svelte@^1.23.0"
 	],
 	"files": [
 		{
