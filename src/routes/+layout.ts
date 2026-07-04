@@ -1,11 +1,14 @@
 export const prerender = true;
 import posthog from "posthog-js";
 import { browser } from "$app/environment";
-import { PUBLIC_POSTHOG, PUBLIC_POSTHOG_API } from "$env/static/public";
+import { env } from "$env/dynamic/public";
+
+const posthogKey = env.PUBLIC_POSTHOG;
+const posthogApi = env.PUBLIC_POSTHOG_API;
 export const load = async () => {
 	if (browser) {
-		posthog.init(PUBLIC_POSTHOG, {
-			api_host: PUBLIC_POSTHOG_API,
+		posthog.init(posthogKey, {
+			api_host: posthogApi,
 			defaults: "2026-01-30",
 		});
 	}
